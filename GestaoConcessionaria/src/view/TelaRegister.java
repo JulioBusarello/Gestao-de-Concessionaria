@@ -8,12 +8,12 @@ package view;
  *
  * @author julio_busarello
  */
-public class TelaLogin extends javax.swing.JFrame {
+public class TelaRegister extends javax.swing.JFrame {
 
     /**
      * Creates new form TelaLogin
      */
-    public TelaLogin() {
+    public TelaRegister() {
         initComponents();
     }
 
@@ -32,9 +32,10 @@ public class TelaLogin extends javax.swing.JFrame {
         jPfPassword = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLaForgotPass = new javax.swing.JLabel();
-        jBtnLogin = new javax.swing.JButton();
         jBtnRegister = new javax.swing.JButton();
+        jPfConfirmPass = new javax.swing.JPasswordField();
+        jLabel5 = new javax.swing.JLabel();
+        jLaReturnLogin = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela de Login");
@@ -44,7 +45,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("LOGIN");
+        jLabel2.setText("REGISTRO");
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/login.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
@@ -55,16 +56,16 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jLabel4.setText("Login:");
 
-        jLaForgotPass.setText("Esqueci minha senha");
-
-        jBtnLogin.setText("Logar");
-        jBtnLogin.setMaximumSize(new java.awt.Dimension(76, 22));
-        jBtnLogin.setMinimumSize(new java.awt.Dimension(76, 22));
-
         jBtnRegister.setText("Registrar");
-        jBtnRegister.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnRegisterActionPerformed(evt);
+        jBtnRegister.setMaximumSize(new java.awt.Dimension(76, 22));
+        jBtnRegister.setMinimumSize(new java.awt.Dimension(76, 22));
+
+        jLabel5.setText("Confirmar Senha:");
+
+        jLaReturnLogin.setText("Retornar para o login");
+        jLaReturnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLaReturnLoginMouseClicked(evt);
             }
         });
 
@@ -79,16 +80,17 @@ public class TelaLogin extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jBtnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
-                                    .addComponent(jBtnRegister))
-                                .addComponent(jLaForgotPass, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTfLogin, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jPfPassword, javax.swing.GroupLayout.Alignment.LEADING)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jPfConfirmPass)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jTfLogin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+                                        .addComponent(jPfPassword, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(jLabel5))
+                                .addComponent(jBtnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLaReturnLogin))
                         .addGap(0, 28, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -97,7 +99,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(80, 80, 80)
+                .addGap(58, 58, 58)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
@@ -108,11 +110,13 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtnRegister))
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPfConfirmPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jBtnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLaForgotPass)
+                .addComponent(jLaReturnLogin)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -120,11 +124,11 @@ public class TelaLogin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBtnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegisterActionPerformed
-        TelaRegister tela = new TelaRegister();
+    private void jLaReturnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLaReturnLoginMouseClicked
+        TelaLogin tela = new TelaLogin();
         dispose();
         tela.setVisible(true);
-    }//GEN-LAST:event_jBtnRegisterActionPerformed
+    }//GEN-LAST:event_jLaReturnLoginMouseClicked
 
     /**
      * @param args the command line arguments
@@ -143,32 +147,34 @@ public class TelaLogin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaLogin().setVisible(true);
+                new TelaRegister().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtnLogin;
     private javax.swing.JButton jBtnRegister;
-    private javax.swing.JLabel jLaForgotPass;
+    private javax.swing.JLabel jLaReturnLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPasswordField jPfConfirmPass;
     private javax.swing.JPasswordField jPfPassword;
     private javax.swing.JTextField jTfLogin;
     // End of variables declaration//GEN-END:variables
