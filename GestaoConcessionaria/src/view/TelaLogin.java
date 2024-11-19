@@ -4,6 +4,10 @@
  */
 package view;
 
+import dao.FuncionarioDao;
+import javax.swing.JOptionPane;
+import model.Funcionario;
+
 /**
  *
  * @author julio_busarello
@@ -60,6 +64,11 @@ public class TelaLogin extends javax.swing.JFrame {
         jBtnLogin.setText("Logar");
         jBtnLogin.setMaximumSize(new java.awt.Dimension(76, 22));
         jBtnLogin.setMinimumSize(new java.awt.Dimension(76, 22));
+        jBtnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnLoginActionPerformed(evt);
+            }
+        });
 
         jBtnRegister.setText("Registrar");
         jBtnRegister.addActionListener(new java.awt.event.ActionListener() {
@@ -75,21 +84,18 @@ public class TelaLogin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jBtnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
-                                    .addComponent(jBtnRegister))
-                                .addComponent(jLaForgotPass, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTfLogin, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jPfPassword, javax.swing.GroupLayout.Alignment.LEADING)))
-                        .addGap(0, 28, Short.MAX_VALUE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jBtnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+                        .addComponent(jBtnRegister))
+                    .addComponent(jLaForgotPass)
+                    .addComponent(jTfLogin)
+                    .addComponent(jPfPassword)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,9 +132,23 @@ public class TelaLogin extends javax.swing.JFrame {
         tela.setVisible(true);
     }//GEN-LAST:event_jBtnRegisterActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void jBtnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnLoginActionPerformed
+        FuncionarioDao funcionarioDao = new FuncionarioDao();
+        String login = jTfLogin.getText().trim();
+        String password = new String(jPfPassword.getPassword());
+        Funcionario funcionario = funcionarioDao.login(login, password);
+        if (funcionario != null) {
+            dispose();
+            TelaPrincipal tela = new TelaPrincipal();
+            tela.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuário ou Senha inválido!");
+            dispose();
+            TelaLogin telaLogin = new TelaLogin();
+            telaLogin.setVisible(true);
+        }
+    }//GEN-LAST:event_jBtnLoginActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
