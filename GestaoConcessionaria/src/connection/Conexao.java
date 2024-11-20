@@ -15,7 +15,7 @@ public class Conexao {
         try {
             String url = "jdbc:mysql://127.0.0.1:3306/dbConcessionaria";
             String user = "root";
-            String password = "senai";
+            String password = "";
             return connection = DriverManager.getConnection(url, user, password);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Impossível conectar-se ao banco de dados! " + e.getMessage());
