@@ -5,26 +5,34 @@
 package view;
 
 import model.Funcionario;
-import view.cliente.TelaCadastroCliente;
 
 /**
  *
  * @author julio_busarello
  */
 public class TelaPrincipal extends javax.swing.JFrame {
+    
+    public static Funcionario funcionario;
 
     public TelaPrincipal() {
         initComponents();
     }
 
-    public void telaFuncionario(Funcionario funcionario) {
+    public void objectFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
+        telaFuncionario();
+    }
+    
+    public void telaFuncionario(){
         if (funcionario.getAdmin()) {
 
         } else {
-            jMiCadastrarCliente.setEnabled(false);
+            jMiCadastrarCli.setEnabled(false);
         }
+        
+        String[] nomeFuncionario = funcionario.getNome().split(" ");
 
-        jMeUsuario.setText(funcionario.getNome());
+        jMeUsuario.setText(nomeFuncionario[0]);
     }
 
     @SuppressWarnings("unchecked")
@@ -33,15 +41,36 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1 = new javax.swing.JMenuBar();
         jMeUsuario = new javax.swing.JMenu();
+        jMiEditarConta = new javax.swing.JMenuItem();
+        jMiReturnLogin = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMeFuncionário = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
-        jMiCadastrarCliente = new javax.swing.JMenuItem();
+        jMiCadastrarCli = new javax.swing.JMenuItem();
+        jMiGerenciarCli = new javax.swing.JMenuItem();
+        jMiListarCli = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela Principal");
         setPreferredSize(new java.awt.Dimension(600, 390));
+        setResizable(false);
+
+        jMiEditarConta.setText("Editar Conta");
+        jMiEditarConta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMiEditarContaActionPerformed(evt);
+            }
+        });
+        jMeUsuario.add(jMiEditarConta);
+
+        jMiReturnLogin.setText("Voltar ao Login");
+        jMiReturnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMiReturnLoginActionPerformed(evt);
+            }
+        });
+        jMeUsuario.add(jMiReturnLogin);
 
         jMenuBar1.add(jMeUsuario);
 
@@ -53,13 +82,29 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Cliente");
 
-        jMiCadastrarCliente.setText("Cadastrar");
-        jMiCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
+        jMiCadastrarCli.setText("Cadastrar");
+        jMiCadastrarCli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMiCadastrarClienteActionPerformed(evt);
+                jMiCadastrarCliActionPerformed(evt);
             }
         });
-        jMenu1.add(jMiCadastrarCliente);
+        jMenu1.add(jMiCadastrarCli);
+
+        jMiGerenciarCli.setText("Gerenciar");
+        jMiGerenciarCli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMiGerenciarCliActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMiGerenciarCli);
+
+        jMiListarCli.setText("Listar");
+        jMiListarCli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMiListarCliActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMiListarCli);
 
         jMenuBar1.add(jMenu1);
 
@@ -83,11 +128,33 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMiCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMiCadastrarClienteActionPerformed
+    private void jMiCadastrarCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMiCadastrarCliActionPerformed
         TelaCadastroCliente tela = new TelaCadastroCliente();
         dispose();
         tela.setVisible(true);
-    }//GEN-LAST:event_jMiCadastrarClienteActionPerformed
+    }//GEN-LAST:event_jMiCadastrarCliActionPerformed
+
+    private void jMiReturnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMiReturnLoginActionPerformed
+        TelaLogin tela = new TelaLogin();
+        dispose();
+        tela.setVisible(true);
+    }//GEN-LAST:event_jMiReturnLoginActionPerformed
+
+    private void jMiEditarContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMiEditarContaActionPerformed
+        TelaEditarConta tela = new TelaEditarConta(funcionario);
+        dispose();
+        tela.setVisible(true);
+    }//GEN-LAST:event_jMiEditarContaActionPerformed
+
+    private void jMiListarCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMiListarCliActionPerformed
+        TelaListarClientes tela = new TelaListarClientes();
+        dispose();
+        tela.setVisible(true);
+    }//GEN-LAST:event_jMiListarCliActionPerformed
+
+    private void jMiGerenciarCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMiGerenciarCliActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMiGerenciarCliActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -128,6 +195,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMiCadastrarCliente;
+    private javax.swing.JMenuItem jMiCadastrarCli;
+    private javax.swing.JMenuItem jMiEditarConta;
+    private javax.swing.JMenuItem jMiGerenciarCli;
+    private javax.swing.JMenuItem jMiListarCli;
+    private javax.swing.JMenuItem jMiReturnLogin;
     // End of variables declaration//GEN-END:variables
 }

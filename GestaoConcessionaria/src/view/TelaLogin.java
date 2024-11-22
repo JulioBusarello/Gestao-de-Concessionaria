@@ -14,8 +14,18 @@ import model.Funcionario;
  */
 public class TelaLogin extends javax.swing.JFrame {
 
+    private boolean teste = true;
+
     public TelaLogin() {
         initComponents();
+        testes(teste);
+    }
+
+    public void testes(Boolean ativado) {
+        if (ativado) {
+            jTfLogin.setText("admin");
+            jPfPassword.setText("senai123");
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -127,14 +137,13 @@ public class TelaLogin extends javax.swing.JFrame {
             dispose();
             TelaPrincipal tela = new TelaPrincipal();
             tela.setVisible(true);
-            tela.telaFuncionario(funcionario);
+            tela.objectFuncionario(funcionario);
         } else {
             JOptionPane.showMessageDialog(null, "Usuário ou Senha inválido!");
         }
     }//GEN-LAST:event_jBtnLoginActionPerformed
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 

@@ -19,6 +19,13 @@ public class TelaRegister extends javax.swing.JFrame {
     public TelaRegister() {
         initComponents();
     }
+    
+    public void limparCampos(){
+        jTfNome.setText("");
+        jTfLogin.setText("");
+        jPfPassword.setText("");
+        jPfConfirmPass.setText("");
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -139,8 +146,8 @@ public class TelaRegister extends javax.swing.JFrame {
     }//GEN-LAST:event_jLaReturnLoginMouseClicked
 
     private void jBtnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegisterActionPerformed
-        String nome = new String(jTfNome.getText());
-        String login = new String(jTfLogin.getText());
+        String nome = jTfNome.getText();
+        String login = jTfLogin.getText();
         String senha = new String(jPfPassword.getPassword());
         String senhaConfir = new String(jPfConfirmPass.getPassword());
 
@@ -149,13 +156,14 @@ public class TelaRegister extends javax.swing.JFrame {
                 FuncionarioDao dao = new FuncionarioDao();
                 funcionario = new Funcionario(nome, login, senha);
                 dao.registro(funcionario);
+                limparCampos();
             } else {
                 JOptionPane.showMessageDialog(null, "As senhas não condizem!");
             }
         }else{
             JOptionPane.showMessageDialog(null, "Os campos não podem estar vazios!");
         }
-
+        
     }//GEN-LAST:event_jBtnRegisterActionPerformed
 
     public static void main(String args[]) {

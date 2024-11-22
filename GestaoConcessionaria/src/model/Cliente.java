@@ -24,6 +24,14 @@ public class Cliente {
         this.telefone = telefone;
         this.genero = genero;
     }
+    
+    public Cliente(Long id, String nome, Date dataNascimento, String telefone, String genero) {
+        this.id = id;
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.telefone = telefone;
+        this.genero = genero;
+    }
 
     // ---- Getters and Setters
     public Long getId() {

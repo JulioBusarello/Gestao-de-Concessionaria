@@ -24,6 +24,14 @@ public class Funcionario {
         this.senha = senha;
         this.admin = false;
     }
+    
+    public Funcionario(Long id, String nome, String login, String senha){
+        this.id = id;
+        this.nome = nome;
+        this.login = login;
+        this.senha = senha;
+        this.admin = false;
+    }
 
     // ---- Getters and Setters
     public Long getId() {

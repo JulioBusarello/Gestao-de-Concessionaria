@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package view.cliente;
+package view;
 
 import dao.ClienteDao;
 import java.text.ParseException;
@@ -23,6 +23,14 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     public TelaCadastroCliente() {
         initComponents();
     }
+    
+    private void limparCampos(){
+        jTfNome.setText("");
+        jFfTelefone.setText("");
+        jTfAno.setText("");
+        jTfDia.setText("");
+        jTfMes.setText("");
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -30,6 +38,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        jLaSeta = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -38,7 +47,6 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jTfDia = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTfGenero = new javax.swing.JTextField();
         jBtnCadastro = new javax.swing.JButton();
         jBtnCancelar = new javax.swing.JButton();
         jFfTelefone = new javax.swing.JFormattedTextField();
@@ -47,6 +55,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jCbGenero = new javax.swing.JComboBox<>();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -54,22 +63,42 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de Clientes");
+        setMinimumSize(new java.awt.Dimension(600, 400));
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLaSeta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/seta.png"))); // NOI18N
+        jLaSeta.setText("jLabel3");
+        jLaSeta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLaSetaMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLaSeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 20, 20));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/people.png"))); // NOI18N
         jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 400));
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("CADASTRO DE CLIENTES");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 14, 254, -1));
 
         jLabel6.setText("Nome:");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 53, -1, -1));
+        getContentPane().add(jTfNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 75, 254, -1));
 
         jLabel4.setText("Telefone:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 115, -1, -1));
 
         jLabel3.setText("Data de Nascimento:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 181, -1, -1));
+        getContentPane().add(jTfDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 223, 78, -1));
 
         jLabel5.setText("Genero:");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 267, -1, -1));
 
         jBtnCadastro.setText("Cadastrar");
         jBtnCadastro.setMaximumSize(new java.awt.Dimension(76, 22));
@@ -79,6 +108,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
                 jBtnCadastroActionPerformed(evt);
             }
         });
+        getContentPane().add(jBtnCadastro, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 333, -1, -1));
 
         jBtnCancelar.setText("Cancelar");
         jBtnCancelar.setMaximumSize(new java.awt.Dimension(76, 22));
@@ -88,100 +118,28 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
                 jBtnCancelarActionPerformed(evt);
             }
         });
+        getContentPane().add(jBtnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 333, -1, -1));
 
         try {
             jFfTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) # ####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        getContentPane().add(jFfTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 137, 254, -1));
+        getContentPane().add(jTfMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(402, 223, 86, -1));
+        getContentPane().add(jTfAno, new org.netbeans.lib.awtextra.AbsoluteConstraints(494, 223, 78, -1));
 
         jLabel7.setText("Dia:");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 203, 78, -1));
 
         jLabel8.setText("Mês:");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(402, 203, 78, -1));
 
         jLabel9.setText("Ano:");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 203, 78, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
-                            .addComponent(jTfNome)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jFfTelefone))
-                        .addGap(28, 28, 28))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jBtnCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jBtnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jTfGenero, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jTfDia, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTfMes, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTfAno, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jFfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9))
-                .addGap(4, 4, 4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTfDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTfMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTfAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTfGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtnCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40))
-        );
+        jCbGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Feminino" }));
+        getContentPane().add(jCbGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 290, 250, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -191,7 +149,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         String nome = jTfNome.getText();
         String telefone = jFfTelefone.getText();
         Date dataNascimento = null;
-        String genero = jTfGenero.getText();
+        String genero = (String) jCbGenero.getSelectedItem();
         String ano = jTfAno.getText();
         String mes = jTfMes.getText();
         String dia = jTfDia.getText();
@@ -218,20 +176,26 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
             }
         }
 
-        if (!telefone.isBlank() && !genero.isBlank() && !nome.isBlank()) {
+        if (!telefone.isBlank() && !nome.isBlank()) {
             ClienteDao dao = new ClienteDao();
             cliente = new Cliente(nome, dataNascimento, telefone, genero);
             dao.cadastro(cliente);
+            limparCampos();
         } else {
             JOptionPane.showMessageDialog(null, "Os campos não podem estar vazios!");
         }
     }//GEN-LAST:event_jBtnCadastroActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
+        limparCampos();
+    }//GEN-LAST:event_jBtnCancelarActionPerformed
+
+    private void jLaSetaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLaSetaMouseClicked
         TelaPrincipal tela = new TelaPrincipal();
         dispose();
         tela.setVisible(true);
-    }//GEN-LAST:event_jBtnCancelarActionPerformed
+        tela.telaFuncionario();
+    }//GEN-LAST:event_jLaSetaMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -268,7 +232,9 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnCadastro;
     private javax.swing.JButton jBtnCancelar;
+    private javax.swing.JComboBox<String> jCbGenero;
     private javax.swing.JFormattedTextField jFfTelefone;
+    private javax.swing.JLabel jLaSeta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -282,7 +248,6 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTfAno;
     private javax.swing.JTextField jTfDia;
-    private javax.swing.JTextField jTfGenero;
     private javax.swing.JTextField jTfMes;
     private javax.swing.JTextField jTfNome;
     // End of variables declaration//GEN-END:variables
