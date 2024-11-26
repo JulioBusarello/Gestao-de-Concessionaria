@@ -28,7 +28,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         } else {
             jMiCadastrarCli.setEnabled(false);
-            jMiGerenciarCli.setEnabled(false);
         }
         
         String[] nomeFuncionario = funcionario.getNome().split(" ");
@@ -154,9 +153,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMiListarCliActionPerformed
 
     private void jMiGerenciarCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMiGerenciarCliActionPerformed
-        TelaGerenciarClientes tela = new TelaGerenciarClientes();
-        dispose();
-        tela.setVisible(true);
+        // TODO add your handling code here:
     }//GEN-LAST:event_jMiGerenciarCliActionPerformed
 
     public static void main(String args[]) {
