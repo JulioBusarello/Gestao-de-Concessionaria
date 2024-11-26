@@ -23,8 +23,8 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     public TelaCadastroCliente() {
         initComponents();
     }
-    
-    private void limparCampos(){
+
+    private void limparCampos() {
         jTfNome.setText("");
         jFfTelefone.setText("");
         jTfAno.setText("");
@@ -138,7 +138,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         jLabel9.setText("Ano:");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 203, 78, -1));
 
-        jCbGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Feminino" }));
+        jCbGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Escolha um Genero", "Masculino", "Feminino" }));
         getContentPane().add(jCbGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 290, 250, -1));
 
         pack();
@@ -176,14 +176,19 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
             }
         }
 
-        if (!telefone.isBlank() && !nome.isBlank()) {
-            ClienteDao dao = new ClienteDao();
-            cliente = new Cliente(nome, dataNascimento, telefone, genero);
-            dao.cadastro(cliente);
-            limparCampos();
-        } else {
-            JOptionPane.showMessageDialog(null, "Os campos não podem estar vazios!");
+        if (!genero.equals("Escolha um Genero")) {
+            if (!telefone.isBlank() && !nome.isBlank()) {
+                ClienteDao dao = new ClienteDao();
+                cliente = new Cliente(nome, dataNascimento, telefone, genero);
+                dao.cadastro(cliente);
+                limparCampos();
+            } else {
+                JOptionPane.showMessageDialog(null, "Os campos não podem estar vazios!");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Escolha um gênero válido!");
         }
+
     }//GEN-LAST:event_jBtnCadastroActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed

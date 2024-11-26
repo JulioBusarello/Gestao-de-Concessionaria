@@ -1,7 +1,10 @@
 package view;
 
 import dao.ClienteDao;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.Cliente;
 
@@ -9,16 +12,24 @@ import model.Cliente;
  * @author julio_busarello
  */
 public class TelaGerenciarClientes extends javax.swing.JFrame {
-    
+
     private ClienteDao clienteDao = new ClienteDao();
 
     public TelaGerenciarClientes() {
         initComponents();
         loadCli();
-        jTfIdCliente.setVisible(false);
+        telaGerenciar(false);
     }
-    
-    public void loadCli(){
+
+    public void telaGerenciar(boolean ativo) {
+        jTfIdCliente.setVisible(false);
+
+        jBtnSalvar.setEnabled(ativo);
+        jBtnExcluir.setEnabled(ativo);
+        jBtnLimpar.setEnabled(ativo);
+    }
+
+    public void loadCli() {
         DefaultTableModel defaultCli = new DefaultTableModel(new Object[]{
             "ID",
             "Nome",
@@ -40,9 +51,36 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
         jTbClientes.setModel(defaultCli);
         jTbClientes.getColumnModel().getColumn(0).setPreferredWidth(5);
     }
-    
-    public void puxarCli() {
+
+    public void puxarCli(int selection) {
+        try {
+            String[] data = jTbClientes.getValueAt(selection, 2).toString().split("-");
+
+            jTfIdCliente.setText(jTbClientes.getValueAt(selection, 0).toString());
+            jTfNome.setText(jTbClientes.getValueAt(selection, 1).toString());
+            jTfDia.setText(data[2]);
+            jTfMes.setText(data[1]);
+            jTfAno.setText(data[0]);
+            jFfTelefone.setText(jTbClientes.getValueAt(selection, 3).toString());
+            jCbGenero.setSelectedItem(jTbClientes.getValueAt(selection, 4));
+            
+            telaGerenciar(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void limparCli() {
+        jTfIdCliente.setText("");
+        jTfNome.setText("");
+        jTfDia.setText("");
+        jTfMes.setText("");
+        jTfAno.setText("");
+        jFfTelefone.setText("");
+        jTbClientes.clearSelection();
+        jCbGenero.setSelectedIndex(0);
         
+        telaGerenciar(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -67,6 +105,9 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
         jTfAno = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLaSeta = new javax.swing.JLabel();
+        jBtnLimpar = new javax.swing.JButton();
+        jBtnExcluir = new javax.swing.JButton();
+        jBtnSalvar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gerenciamento de Clientes");
@@ -101,7 +142,7 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
         jLabel5.setText("Genero:");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, -1, -1));
 
-        jCbGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Feminino" }));
+        jCbGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Escolha um Genero", "Masculino", "Feminino" }));
         getContentPane().add(jCbGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, 300, -1));
 
         jTbClientes.setModel(new javax.swing.table.DefaultTableModel(
@@ -128,7 +169,7 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTbClientes);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 214, 588, 180));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 254, 588, 140));
         getContentPane().add(jTfDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 78, -1));
 
         jLabel7.setText("Dia:");
@@ -148,7 +189,21 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
                 jLaSetaMouseClicked(evt);
             }
         });
-        getContentPane().add(jLaSeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(jLaSeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jBtnLimpar.setText("Limpar");
+        jBtnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnLimparActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jBtnLimpar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, -1, -1));
+
+        jBtnExcluir.setText("Excluir");
+        getContentPane().add(jBtnExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, -1, -1));
+
+        jBtnSalvar.setText("Salvar");
+        getContentPane().add(jBtnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 220, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -162,8 +217,15 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_jLaSetaMouseClicked
 
     private void jTbClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTbClientesMouseClicked
-        puxarCli();
+        int linha = jTbClientes.getSelectedRow();
+        if (linha != -1) {
+            puxarCli(linha);
+        }
     }//GEN-LAST:event_jTbClientesMouseClicked
+
+    private void jBtnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnLimparActionPerformed
+        limparCli();
+    }//GEN-LAST:event_jBtnLimparActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -198,6 +260,9 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtnExcluir;
+    private javax.swing.JButton jBtnLimpar;
+    private javax.swing.JButton jBtnSalvar;
     private javax.swing.JComboBox<String> jCbGenero;
     private javax.swing.JFormattedTextField jFfTelefone;
     private javax.swing.JLabel jLaSeta;
