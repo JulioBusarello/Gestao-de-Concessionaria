@@ -64,12 +64,14 @@ public class FuncionarioDao {
     }
 
     public Funcionario editar(Funcionario funcionario) {
-        String sql = "UPDATE funcionario SET nome = ?, login = ?, senha = ? WHERE id = ?";
+        String sql = "UPDATE funcionario SET nome = ?, login = ?, senha = ?, salario = ?, admin = ? WHERE id = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, funcionario.getNome());
             ps.setString(2, funcionario.getLogin());
             ps.setString(3, funcionario.getSenha());
-            ps.setLong(4, funcionario.getId());
+            ps.setDouble(4, funcionario.getSalario());
+            ps.setBoolean(5, funcionario.getAdmin());
+            ps.setLong(6, funcionario.getId());
 
             ps.execute();
             ps.close();
@@ -101,6 +103,18 @@ public class FuncionarioDao {
             e.printStackTrace();
         }
         return funcionarios;
+    }
+    
+    public void delete(Long id){
+        String sql = "DELETE FROM funcionario WHERE id = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setLong(1, id);
+            
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

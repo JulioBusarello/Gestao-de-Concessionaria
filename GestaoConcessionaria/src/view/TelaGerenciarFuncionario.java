@@ -1,8 +1,11 @@
 package view;
 
+import dao.ClienteDao;
 import dao.FuncionarioDao;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.Cliente;
 import model.Funcionario;
 
 /**
@@ -11,11 +14,21 @@ import model.Funcionario;
 public class TelaGerenciarFuncionario extends javax.swing.JFrame {
 
     private FuncionarioDao funcionarioDao = new FuncionarioDao();
+    private Funcionario funcionario;
+    
+    Long id;
+    String nome, login, senha;
+    Double salario;
+    boolean admin;
 
     public TelaGerenciarFuncionario() {
         initComponents();
         loadFun();
         telaGerenciar(false);
+    }
+
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
     }
 
     private void telaGerenciar(boolean ativo) {
@@ -30,6 +43,8 @@ public class TelaGerenciarFuncionario extends javax.swing.JFrame {
         jTfSenha.setEnabled(ativo);
         jTfSalario.setEnabled(ativo);
         jCbAdmin.setEnabled(ativo);
+
+        if (!ativo) { jTbFuncionarios.clearSelection(); limparFun(); }
     }
 
     private void loadFun() {
@@ -42,14 +57,14 @@ public class TelaGerenciarFuncionario extends javax.swing.JFrame {
             "Admin",}, 0);
 
         List<Funcionario> funcionarios = funcionarioDao.getAllFuncionarios();
-        for (Funcionario funcionario : funcionarios) {
+        for (Funcionario funcionarioL : funcionarios) {
             Object linha[] = new Object[]{
-                funcionario.getId(),
-                funcionario.getNome(),
-                funcionario.getLogin(),
-                funcionario.getSenha(),
-                funcionario.getSalario(),
-                funcionario.getAdmin() ? "Sim" : "Não"
+                funcionarioL.getId(),
+                funcionarioL.getNome(),
+                funcionarioL.getLogin(),
+                funcionarioL.getSenha(),
+                funcionarioL.getSalario(),
+                funcionarioL.getAdmin() ? "Sim" : "Não"
             };
             defaultFun.addRow(linha);
         }
@@ -57,16 +72,83 @@ public class TelaGerenciarFuncionario extends javax.swing.JFrame {
         jTbFuncionarios.getColumnModel().getColumn(0).setPreferredWidth(5);
     }
 
-    private void puxarCli(int selection) {
-        jTfIdFun.setText(jTbFuncionarios.getValueAt(selection, 0).toString());
+    private Long puxarFun(int selection) {
+        Long id = Long.valueOf(jTbFuncionarios.getValueAt(selection, 0).toString());
+        
+        jTfIdFun.setText(id.toString());
         jTfNome.setText(jTbFuncionarios.getValueAt(selection, 1).toString());
         jTfLogin.setText(jTbFuncionarios.getValueAt(selection, 2).toString());
         jTfSenha.setText(jTbFuncionarios.getValueAt(selection, 3).toString());
         jTfSalario.setText(jTbFuncionarios.getValueAt(selection, 4).toString());
-        
-        jCbAdmin.setSelected(jTbFuncionarios.getValueAt(selection, 5).toString().equals("Sim") ? true : false);
+
+        jCbAdmin.setSelected("Sim".equals(jTbFuncionarios.getValueAt(selection, 5).toString()));
 
         telaGerenciar(true);
+        
+        return id;
+    }
+    
+    private void pegarDados(){
+        this.id = Long.valueOf(jTfIdFun.getText());
+        this.nome = jTfNome.getText();
+        this.login = jTfLogin.getText();
+        this.senha = jTfSenha.getText();
+        this.salario = Double.valueOf(jTfSalario.getText());
+        this.admin = jCbAdmin.isSelected();
+    }
+
+    private void limparFun() {
+        jTfIdFun.setText("");
+        jTfNome.setText("");
+        jTfLogin.setText("");
+        jTfSenha.setText("");
+        jTfSalario.setText("");
+
+        jCbAdmin.setSelected(false);
+    }
+
+    private void excluirFun() {
+        Long id = Long.valueOf(jTfIdFun.getText());
+
+        int optDel = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir este Funcionario?",
+                "Confirmar", JOptionPane.YES_NO_OPTION);
+
+        if (optDel != JOptionPane.YES_NO_OPTION) return;
+
+        if (id.equals(funcionario.getId())) {
+            JOptionPane.showMessageDialog(null, "Não é possível excluir sua própria conta!");
+            return;
+        }
+
+        funcionarioDao.delete(id);
+        loadFun();
+
+        telaGerenciar(false);
+    }
+    
+    private void salvarFun(){
+        pegarDados();
+
+        if (camposNaoPreenchidos()) {
+            JOptionPane.showMessageDialog(null, "Algum campo não foi preenchido!");
+            return;
+        }
+
+        int optSav = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja salvar as alterações deste cliente?",
+                "Confirmar", JOptionPane.YES_NO_OPTION);
+
+        if (optSav == JOptionPane.YES_NO_OPTION) {
+            FuncionarioDao dao = new FuncionarioDao();
+            Funcionario funcionario = new Funcionario(id, nome, login, senha, salario, admin);
+            dao.editar(funcionario);
+        }
+
+        limparFun();
+        loadFun();
+    }
+    
+    private boolean camposNaoPreenchidos() {
+        return jTfNome.getText().isBlank() || jTfLogin.getText().isBlank() || jTfSenha.getText().isBlank() || jTfSalario.getText().isBlank();
     }
 
     @SuppressWarnings("unchecked")
@@ -107,6 +189,12 @@ public class TelaGerenciarFuncionario extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("Nome:");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, -1, -1));
+
+        jTfSalario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTfSalarioKeyReleased(evt);
+            }
+        });
         getContentPane().add(jTfSalario, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 300, -1));
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -129,9 +217,16 @@ public class TelaGerenciarFuncionario extends javax.swing.JFrame {
                 "ID", "Nome", "Login", "Senha", "Salário", "Admin"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Long.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -178,11 +273,34 @@ public class TelaGerenciarFuncionario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jBtnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 210, -1, -1));
+
+        jTfNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTfNomeKeyReleased(evt);
+            }
+        });
         getContentPane().add(jTfNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 300, -1));
+
+        jTfLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTfLoginKeyReleased(evt);
+            }
+        });
         getContentPane().add(jTfLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 300, -1));
+
+        jTfSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTfSenhaKeyReleased(evt);
+            }
+        });
         getContentPane().add(jTfSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 300, -1));
 
         jCbAdmin.setText("Admin");
+        jCbAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCbAdminActionPerformed(evt);
+            }
+        });
         getContentPane().add(jCbAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, 300, -1));
 
         pack();
@@ -190,7 +308,12 @@ public class TelaGerenciarFuncionario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTbFuncionariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTbFuncionariosMouseClicked
-        puxarCli(jTbFuncionarios.getSelectedRow());
+        int selection = jTbFuncionarios.getSelectedRow();
+        Long id = puxarFun(selection);
+        
+        if(funcionario.getId().equals(id)){
+            jCbAdmin.setEnabled(false);
+        }
     }//GEN-LAST:event_jTbFuncionariosMouseClicked
 
     private void jLaSetaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLaSetaMouseClicked
@@ -201,16 +324,52 @@ public class TelaGerenciarFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_jLaSetaMouseClicked
 
     private void jBtnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnLimparActionPerformed
-
+        telaGerenciar(false);
     }//GEN-LAST:event_jBtnLimparActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
-
+        excluirFun();
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSalvarActionPerformed
-
+        salvarFun();
     }//GEN-LAST:event_jBtnSalvarActionPerformed
+
+    private void jTfNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTfNomeKeyReleased
+        if(!camposNaoPreenchidos()){    
+            jBtnSalvar.setEnabled(true);
+        }else{
+            jBtnSalvar.setEnabled(false);
+        }
+    }//GEN-LAST:event_jTfNomeKeyReleased
+
+    private void jTfLoginKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTfLoginKeyReleased
+        if(!camposNaoPreenchidos()){
+            jBtnSalvar.setEnabled(true);
+        }else{
+            jBtnSalvar.setEnabled(false);
+        }
+    }//GEN-LAST:event_jTfLoginKeyReleased
+
+    private void jTfSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTfSenhaKeyReleased
+        if(!camposNaoPreenchidos()){
+            jBtnSalvar.setEnabled(true);
+        }else{
+            jBtnSalvar.setEnabled(false);
+        }
+    }//GEN-LAST:event_jTfSenhaKeyReleased
+
+    private void jTfSalarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTfSalarioKeyReleased
+        if(!camposNaoPreenchidos()){
+            jBtnSalvar.setEnabled(true);
+        }else{
+            jBtnSalvar.setEnabled(false);
+        }
+    }//GEN-LAST:event_jTfSalarioKeyReleased
+
+    private void jCbAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCbAdminActionPerformed
+        jBtnSalvar.setEnabled(true);
+    }//GEN-LAST:event_jCbAdminActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

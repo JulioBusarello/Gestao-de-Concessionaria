@@ -18,4 +18,10 @@ CREATE TABLE cliente(
     genero VARCHAR(20)
 );
 
+CREATE TABLE veiculo (
+	id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    placa VARCHAR(7) NOT NULL,
+    
+);
+
 INSERT INTO funcionario (nome, login, senha, admin) VALUES("Admin", "admin", "Senai123", true);

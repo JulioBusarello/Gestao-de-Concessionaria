@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
 
 import dao.FuncionarioDao;
@@ -9,11 +5,13 @@ import javax.swing.JOptionPane;
 import model.Funcionario;
 
 /**
- *
  * @author julio_busarello
  */
+
 public class TelaLogin extends javax.swing.JFrame {
 
+    private TelaAdminConfirm telaAdmin = new TelaAdminConfirm();
+    
     private boolean teste = true;
 
     public TelaLogin() {
@@ -21,11 +19,16 @@ public class TelaLogin extends javax.swing.JFrame {
         testes(teste);
     }
 
-    public void testes(Boolean ativado) {
+    private void testes(Boolean ativado) {
         if (ativado) {
             jTfLogin.setText("admin");
             jPfPassword.setText("senai123");
         }
+    }
+    
+    public void fecharTelas() {
+        dispose();
+        telaAdmin.dispose();
     }
 
     @SuppressWarnings("unchecked")
@@ -123,9 +126,8 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegisterActionPerformed
-        TelaRegister tela = new TelaRegister();
-        dispose();
-        tela.setVisible(true);
+        telaAdmin.setVisible(true);
+        telaAdmin.setTelaLogin(this);
     }//GEN-LAST:event_jBtnRegisterActionPerformed
 
     private void jBtnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnLoginActionPerformed

@@ -115,10 +115,10 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
         telaGerenciar(false);
     }
 
-    private void salvarCli(Long id, String nome, String dia, String mes, String ano, String telefone, String genero) {
+    private void salvarCli() {
         pegarDados();
 
-        if (camposNaoPreenchidos(nome, dia, mes, ano, telefone)) {
+        if (camposNaoPreenchidos()) {
             JOptionPane.showMessageDialog(null, "Algum campo não foi preenchido!");
             return;
         }
@@ -146,8 +146,8 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
         loadCli();
     }
 
-    private boolean camposNaoPreenchidos(String nome, String dia, String mes, String ano, String telefone) {
-        return nome.isBlank() || dia.isBlank() || mes.isBlank() || ano.isBlank() || telefone.isBlank();
+    private boolean camposNaoPreenchidos() {
+        return jTfNome.getText().isBlank() || jFfAno.getText().isBlank() || jFfDia.getText().isBlank() || jFfMes.getText().isBlank() || jFfTelefone.getText().isBlank();
     }
 
     @SuppressWarnings("unchecked")
@@ -350,29 +350,29 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
     private void jBtnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSalvarActionPerformed
         pegarDados();
 
-        salvarCli(id, nome, dia, mes, ano, telefone, genero);
+        salvarCli();
     }//GEN-LAST:event_jBtnSalvarActionPerformed
 
     private void jTfNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTfNomeKeyReleased
-        if (!jTfNome.getText().isBlank() && !jFfAno.getText().isBlank() && !jFfDia.getText().isBlank() && !jFfMes.getText().isBlank() && !jFfTelefone.getText().isBlank()) {
+        if (camposNaoPreenchidos()) {
             jBtnSalvar.setEnabled(true);
         }
     }//GEN-LAST:event_jTfNomeKeyReleased
 
     private void jFfDiaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFfDiaKeyReleased
-        if (!jTfNome.getText().isBlank() && !jFfAno.getText().isBlank() && !jFfDia.getText().isBlank() && !jFfMes.getText().isBlank() && !jFfTelefone.getText().isBlank()) {
+        if (camposNaoPreenchidos()) {
             jBtnSalvar.setEnabled(true);
         }
     }//GEN-LAST:event_jFfDiaKeyReleased
 
     private void jFfMesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFfMesKeyReleased
-        if (!jTfNome.getText().isBlank() && !jFfAno.getText().isBlank() && !jFfDia.getText().isBlank() && !jFfMes.getText().isBlank() && !jFfTelefone.getText().isBlank()) {
+        if (camposNaoPreenchidos()) {
             jBtnSalvar.setEnabled(true);
         }
     }//GEN-LAST:event_jFfMesKeyReleased
 
     private void jFfAnoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFfAnoKeyReleased
-        if (!jTfNome.getText().isBlank() && !jFfAno.getText().isBlank() && !jFfDia.getText().isBlank() && !jFfMes.getText().isBlank() && !jFfTelefone.getText().isBlank()) {
+        if (camposNaoPreenchidos()) {
             jBtnSalvar.setEnabled(true);
         }
     }//GEN-LAST:event_jFfAnoKeyReleased

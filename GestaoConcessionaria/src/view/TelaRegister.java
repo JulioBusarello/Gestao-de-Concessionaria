@@ -9,9 +9,9 @@ import javax.swing.JOptionPane;
 import model.Funcionario;
 
 /**
- *
  * @author julio_busarello
  */
+
 public class TelaRegister extends javax.swing.JFrame {
 
     private Funcionario funcionario;

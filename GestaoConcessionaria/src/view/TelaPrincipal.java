@@ -1,13 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
 
 import model.Funcionario;
 
 /**
- *
  * @author julio_busarello
  */
 public class TelaPrincipal extends javax.swing.JFrame {
@@ -24,11 +19,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
     
     public void telaFuncionario(){
-        if (funcionario.getAdmin()) {
-
-        } else {
+        if (!funcionario.getAdmin()) {
             jMiCadastrarCli.setEnabled(false);
             jMiGerenciarCli.setEnabled(false);
+            jMiCadastrarFun.setEnabled(false);
+            jMiGerenciarFun.setEnabled(false);
         }
         
         String[] nomeFuncionario = funcionario.getNome().split(" ");
@@ -198,6 +193,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         TelaGerenciarFuncionario tela = new TelaGerenciarFuncionario();
         dispose();
         tela.setVisible(true);
+        tela.setFuncionario(funcionario);
     }//GEN-LAST:event_jMiGerenciarFunActionPerformed
 
     private void jMiListarFunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMiListarFunActionPerformed

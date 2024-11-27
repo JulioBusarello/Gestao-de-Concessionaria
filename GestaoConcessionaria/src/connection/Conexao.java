@@ -19,6 +19,7 @@ public class Conexao {
             return connection = DriverManager.getConnection(url, user, password);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Impossível conectar-se ao banco de dados! " + e.getMessage());
+            System.exit(1);
             return null;
         }
     }
