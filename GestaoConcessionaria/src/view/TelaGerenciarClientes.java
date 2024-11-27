@@ -1,10 +1,9 @@
 package view;
 
 import dao.ClienteDao;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
-import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Cliente;
 
@@ -15,21 +14,34 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
 
     private ClienteDao clienteDao = new ClienteDao();
 
+    private Long id;
+    private String nome, telefone, ano, mes, dia, genero;
+    private Date dataNascimento;
+
+    private TelaCadastroCliente dataConverter = new TelaCadastroCliente();
+
     public TelaGerenciarClientes() {
         initComponents();
         loadCli();
         telaGerenciar(false);
     }
 
-    public void telaGerenciar(boolean ativo) {
+    private void telaGerenciar(boolean ativo) {
         jTfIdCliente.setVisible(false);
+        jBtnSalvar.setEnabled(false);
 
-        jBtnSalvar.setEnabled(ativo);
         jBtnExcluir.setEnabled(ativo);
         jBtnLimpar.setEnabled(ativo);
+
+        jTfNome.setEnabled(ativo);
+        jFfDia.setEnabled(ativo);
+        jFfMes.setEnabled(ativo);
+        jFfAno.setEnabled(ativo);
+        jFfTelefone.setEnabled(ativo);
+        jCbGenero.setEnabled(ativo);
     }
 
-    public void loadCli() {
+    private void loadCli() {
         DefaultTableModel defaultCli = new DefaultTableModel(new Object[]{
             "ID",
             "Nome",
@@ -52,35 +64,90 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
         jTbClientes.getColumnModel().getColumn(0).setPreferredWidth(5);
     }
 
-    public void puxarCli(int selection) {
-        try {
-            String[] data = jTbClientes.getValueAt(selection, 2).toString().split("-");
-
-            jTfIdCliente.setText(jTbClientes.getValueAt(selection, 0).toString());
-            jTfNome.setText(jTbClientes.getValueAt(selection, 1).toString());
-            jTfDia.setText(data[2]);
-            jTfMes.setText(data[1]);
-            jTfAno.setText(data[0]);
-            jFfTelefone.setText(jTbClientes.getValueAt(selection, 3).toString());
-            jCbGenero.setSelectedItem(jTbClientes.getValueAt(selection, 4));
-            
-            telaGerenciar(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private void pegarDados() {
+        this.id = Long.parseLong(jTfIdCliente.getText());
+        this.nome = jTfNome.getText();
+        this.telefone = jFfTelefone.getText();
+        this.ano = jFfAno.getText();
+        this.mes = jFfMes.getText();
+        this.dia = jFfDia.getText();
+        this.genero = (String) jCbGenero.getSelectedItem();
+        this.dataNascimento = dataConverter.converterParaData(ano, mes, dia);
     }
 
-    public void limparCli() {
+    private void puxarCli(int selection) {
+        String[] data = jTbClientes.getValueAt(selection, 2).toString().split("-");
+
+        jTfIdCliente.setText(jTbClientes.getValueAt(selection, 0).toString());
+        jTfNome.setText(jTbClientes.getValueAt(selection, 1).toString());
+        jFfDia.setText(data[2]);
+        jFfMes.setText(data[1]);
+        jFfAno.setText(data[0]);
+        jFfTelefone.setText(jTbClientes.getValueAt(selection, 3).toString());
+        jCbGenero.setSelectedItem(jTbClientes.getValueAt(selection, 4));
+
+        telaGerenciar(true);
+    }
+
+    private void limparCli() {
         jTfIdCliente.setText("");
         jTfNome.setText("");
-        jTfDia.setText("");
-        jTfMes.setText("");
-        jTfAno.setText("");
+        jFfDia.setText("");
+        jFfMes.setText("");
+        jFfAno.setText("");
         jFfTelefone.setText("");
         jTbClientes.clearSelection();
         jCbGenero.setSelectedIndex(0);
-        
+
         telaGerenciar(false);
+    }
+
+    private void deletarCli() {
+        Long idCli = Long.parseLong(jTfIdCliente.getText());
+
+        int optDel = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir este cliente?",
+                "Confirmar", JOptionPane.YES_NO_OPTION);
+
+        if (optDel == JOptionPane.YES_NO_OPTION) {
+            clienteDao.deleteCliente(idCli);
+            loadCli();
+        }
+        telaGerenciar(false);
+    }
+
+    private void salvarCli(Long id, String nome, String dia, String mes, String ano, String telefone, String genero) {
+        pegarDados();
+
+        if (camposNaoPreenchidos(nome, dia, mes, ano, telefone)) {
+            JOptionPane.showMessageDialog(null, "Algum campo não foi preenchido!");
+            return;
+        }
+
+        if (dataNascimento == null) {
+            JOptionPane.showMessageDialog(null, "A data inserida é inválida!");
+            return;
+        }
+
+        if (genero.equals("Escolha um Genero")) {
+            JOptionPane.showMessageDialog(null, "Escolha um gênero válido!");
+            return;
+        }
+
+        int optSav = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja salvar as alterações deste cliente?",
+                "Confirmar", JOptionPane.YES_NO_OPTION);
+
+        if (optSav == JOptionPane.YES_NO_OPTION) {
+            ClienteDao dao = new ClienteDao();
+            Cliente cliente = new Cliente(id, nome, dataNascimento, telefone, genero);
+            dao.updateCliente(cliente);
+        }
+
+        limparCli();
+        loadCli();
+    }
+
+    private boolean camposNaoPreenchidos(String nome, String dia, String mes, String ano, String telefone) {
+        return nome.isBlank() || dia.isBlank() || mes.isBlank() || ano.isBlank() || telefone.isBlank();
     }
 
     @SuppressWarnings("unchecked")
@@ -98,16 +165,16 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
         jCbGenero = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTbClientes = new javax.swing.JTable();
-        jTfDia = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTfMes = new javax.swing.JTextField();
-        jTfAno = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLaSeta = new javax.swing.JLabel();
         jBtnLimpar = new javax.swing.JButton();
         jBtnExcluir = new javax.swing.JButton();
         jBtnSalvar = new javax.swing.JButton();
+        jFfAno = new javax.swing.JFormattedTextField();
+        jFfDia = new javax.swing.JFormattedTextField();
+        jFfMes = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gerenciamento de Clientes");
@@ -124,6 +191,12 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
 
         jLabel1.setText("Nome:");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, -1, -1));
+
+        jTfNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTfNomeKeyReleased(evt);
+            }
+        });
         getContentPane().add(jTfNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, 300, -1));
 
         jLabel3.setText("Data de Nascimento:");
@@ -170,15 +243,12 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTbClientes);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 254, 588, 140));
-        getContentPane().add(jTfDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 78, -1));
 
         jLabel7.setText("Dia:");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 78, -1));
 
         jLabel8.setText("Mês:");
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, 78, -1));
-        getContentPane().add(jTfMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 80, -1));
-        getContentPane().add(jTfAno, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 100, 120, -1));
 
         jLabel9.setText("Ano:");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 80, 78, -1));
@@ -200,10 +270,56 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
         getContentPane().add(jBtnLimpar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, -1, -1));
 
         jBtnExcluir.setText("Excluir");
-        getContentPane().add(jBtnExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, -1, -1));
+        jBtnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnExcluirActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jBtnExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 220, -1, -1));
 
         jBtnSalvar.setText("Salvar");
-        getContentPane().add(jBtnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 220, -1, -1));
+        jBtnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnSalvarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jBtnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 220, -1, -1));
+
+        try {
+            jFfAno.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFfAno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jFfAnoKeyReleased(evt);
+            }
+        });
+        getContentPane().add(jFfAno, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 100, 120, -1));
+
+        try {
+            jFfDia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFfDia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jFfDiaKeyReleased(evt);
+            }
+        });
+        getContentPane().add(jFfDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 80, -1));
+
+        try {
+            jFfMes.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFfMes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jFfMesKeyReleased(evt);
+            }
+        });
+        getContentPane().add(jFfMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 80, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -227,6 +343,40 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
         limparCli();
     }//GEN-LAST:event_jBtnLimparActionPerformed
 
+    private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
+        deletarCli();
+    }//GEN-LAST:event_jBtnExcluirActionPerformed
+
+    private void jBtnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSalvarActionPerformed
+        pegarDados();
+
+        salvarCli(id, nome, dia, mes, ano, telefone, genero);
+    }//GEN-LAST:event_jBtnSalvarActionPerformed
+
+    private void jTfNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTfNomeKeyReleased
+        if (!jTfNome.getText().isBlank() && !jFfAno.getText().isBlank() && !jFfDia.getText().isBlank() && !jFfMes.getText().isBlank() && !jFfTelefone.getText().isBlank()) {
+            jBtnSalvar.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTfNomeKeyReleased
+
+    private void jFfDiaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFfDiaKeyReleased
+        if (!jTfNome.getText().isBlank() && !jFfAno.getText().isBlank() && !jFfDia.getText().isBlank() && !jFfMes.getText().isBlank() && !jFfTelefone.getText().isBlank()) {
+            jBtnSalvar.setEnabled(true);
+        }
+    }//GEN-LAST:event_jFfDiaKeyReleased
+
+    private void jFfMesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFfMesKeyReleased
+        if (!jTfNome.getText().isBlank() && !jFfAno.getText().isBlank() && !jFfDia.getText().isBlank() && !jFfMes.getText().isBlank() && !jFfTelefone.getText().isBlank()) {
+            jBtnSalvar.setEnabled(true);
+        }
+    }//GEN-LAST:event_jFfMesKeyReleased
+
+    private void jFfAnoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFfAnoKeyReleased
+        if (!jTfNome.getText().isBlank() && !jFfAno.getText().isBlank() && !jFfDia.getText().isBlank() && !jFfMes.getText().isBlank() && !jFfTelefone.getText().isBlank()) {
+            jBtnSalvar.setEnabled(true);
+        }
+    }//GEN-LAST:event_jFfAnoKeyReleased
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -241,13 +391,17 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaGerenciarClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaGerenciarClientes.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaGerenciarClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaGerenciarClientes.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaGerenciarClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaGerenciarClientes.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaGerenciarClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaGerenciarClientes.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -264,6 +418,9 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
     private javax.swing.JButton jBtnLimpar;
     private javax.swing.JButton jBtnSalvar;
     private javax.swing.JComboBox<String> jCbGenero;
+    private javax.swing.JFormattedTextField jFfAno;
+    private javax.swing.JFormattedTextField jFfDia;
+    private javax.swing.JFormattedTextField jFfMes;
     private javax.swing.JFormattedTextField jFfTelefone;
     private javax.swing.JLabel jLaSeta;
     private javax.swing.JLabel jLabel1;
@@ -276,10 +433,7 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTbClientes;
-    private javax.swing.JTextField jTfAno;
-    private javax.swing.JTextField jTfDia;
     private javax.swing.JTextField jTfIdCliente;
-    private javax.swing.JTextField jTfMes;
     private javax.swing.JTextField jTfNome;
     // End of variables declaration//GEN-END:variables
 }

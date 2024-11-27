@@ -19,12 +19,16 @@ public class TelaRegister extends javax.swing.JFrame {
     public TelaRegister() {
         initComponents();
     }
-    
-    public void limparCampos(){
+
+    public void limparCampos() {
         jTfNome.setText("");
         jTfLogin.setText("");
         jPfPassword.setText("");
         jPfConfirmPass.setText("");
+    }
+
+    public void admEdit(boolean admin) {
+        jLaReturnLogin.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -45,7 +49,7 @@ public class TelaRegister extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Tela de Registro");
+        setTitle("Tela de Registro de Funcionários");
         setBackground(new java.awt.Color(60, 64, 65));
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setResizable(false);
@@ -64,8 +68,6 @@ public class TelaRegister extends javax.swing.JFrame {
         jLabel4.setText("Login:");
 
         jBtnRegister.setText("Registrar");
-        jBtnRegister.setMaximumSize(new java.awt.Dimension(76, 22));
-        jBtnRegister.setMinimumSize(new java.awt.Dimension(76, 22));
         jBtnRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnRegisterActionPerformed(evt);
@@ -95,7 +97,7 @@ public class TelaRegister extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
-                    .addComponent(jBtnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtnRegister)
                     .addComponent(jPfConfirmPass)
                     .addComponent(jLabel6)
                     .addComponent(jTfNome)
@@ -129,7 +131,7 @@ public class TelaRegister extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPfConfirmPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jBtnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtnRegister)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLaReturnLogin)
                 .addGap(32, 32, 32))
@@ -160,10 +162,10 @@ public class TelaRegister extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "As senhas não condizem!");
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Os campos não podem estar vazios!");
         }
-        
+
     }//GEN-LAST:event_jBtnRegisterActionPerformed
 
     public static void main(String args[]) {

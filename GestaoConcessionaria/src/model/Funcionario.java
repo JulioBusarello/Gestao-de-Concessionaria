@@ -32,6 +32,15 @@ public class Funcionario {
         this.senha = senha;
         this.admin = false;
     }
+    
+    public Funcionario(Long id, String nome, String login, String senha, Double salario, boolean admin){
+        this.id = id;
+        this.nome = nome;
+        this.login = login;
+        this.senha = senha;
+        this.salario = salario;
+        this.admin = admin;
+    }
 
     // ---- Getters and Setters
     public Long getId() {

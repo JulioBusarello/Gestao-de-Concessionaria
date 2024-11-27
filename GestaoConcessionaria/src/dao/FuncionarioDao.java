@@ -5,7 +5,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import model.Cliente;
 import model.Funcionario;
 
 /**
@@ -76,6 +79,28 @@ public class FuncionarioDao {
             throw new RuntimeException(e);
         }
         return funcionario;
+    }
+
+    public List<Funcionario> getAllFuncionarios() {
+        List<Funcionario> funcionarios = new ArrayList<>();
+        String sql = "SELECT * FROM funcionario";
+        try (Connection connection = new Conexao().getConexao(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    funcionarios.add(new Funcionario(
+                            rs.getLong("id"),
+                            rs.getString("nome"),
+                            rs.getString("login"),
+                            rs.getString("senha"),
+                            rs.getDouble("salario"),
+                            rs.getBoolean("admin")
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return funcionarios;
     }
 
 }

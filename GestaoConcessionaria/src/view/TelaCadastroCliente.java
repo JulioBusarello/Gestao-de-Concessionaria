@@ -8,6 +8,7 @@ import dao.ClienteDao;
 import java.text.ParseException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import model.Cliente;
 import view.TelaPrincipal;
@@ -18,7 +19,11 @@ import view.TelaPrincipal;
  */
 public class TelaCadastroCliente extends javax.swing.JFrame {
 
+    public static final int anoAtual = LocalDate.now().getYear();
     private Cliente cliente;
+    
+    private String nome, telefone, ano, mes, dia, genero;
+    private Date dataNascimento;
 
     public TelaCadastroCliente() {
         initComponents();
@@ -27,9 +32,45 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     private void limparCampos() {
         jTfNome.setText("");
         jFfTelefone.setText("");
-        jTfAno.setText("");
-        jTfDia.setText("");
-        jTfMes.setText("");
+        jFfAno.setText("");
+        jFfDia.setText("");
+        jFfMes.setText("");
+    }
+    
+    private void pegarDados() {
+        this.nome = jTfNome.getText();
+        this.telefone = jFfTelefone.getText();
+        this.ano = jFfAno.getText();
+        this.mes = jFfMes.getText();
+        this.dia = jFfDia.getText();
+        this.genero = (String) jCbGenero.getSelectedItem();
+        this.dataNascimento = converterParaData(ano, mes, dia);
+    }
+
+    public Date converterParaData(String ano, String mes, String dia) {
+        if (Integer.parseInt(ano) > (anoAtual - 18) || Integer.parseInt(ano) < (anoAtual - 100)) {
+            return null;
+        }
+
+        if (Integer.parseInt(mes) > 12 || Integer.parseInt(mes) < 1) {
+            return null;
+        }
+
+        if (Integer.parseInt(dia) > 31 || Integer.parseInt(dia) < 1) {
+            return null;
+        }
+
+        try {
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy/MM/dd");
+            java.util.Date utilDate = formato.parse(ano + "/" + mes + "/" + dia);
+            return new Date(utilDate.getTime());
+        } catch (ParseException e) {
+            return null;
+        }
+    }
+
+    private boolean camposNaoPreenchidos(String nome, String dia, String mes, String ano, String telefone) {
+        return nome.isBlank() || dia.isBlank() || mes.isBlank() || ano.isBlank() || telefone.isBlank();
     }
 
     @SuppressWarnings("unchecked")
@@ -45,17 +86,17 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         jTfNome = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTfDia = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jBtnCadastro = new javax.swing.JButton();
         jBtnCancelar = new javax.swing.JButton();
         jFfTelefone = new javax.swing.JFormattedTextField();
-        jTfMes = new javax.swing.JTextField();
-        jTfAno = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jCbGenero = new javax.swing.JComboBox<>();
+        jFfDia = new javax.swing.JFormattedTextField();
+        jFfMes = new javax.swing.JFormattedTextField();
+        jFfAno = new javax.swing.JFormattedTextField();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -95,7 +136,6 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
 
         jLabel3.setText("Data de Nascimento:");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 181, -1, -1));
-        getContentPane().add(jTfDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 223, 78, -1));
 
         jLabel5.setText("Genero:");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 267, -1, -1));
@@ -111,8 +151,6 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         getContentPane().add(jBtnCadastro, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 333, -1, -1));
 
         jBtnCancelar.setText("Cancelar");
-        jBtnCancelar.setMaximumSize(new java.awt.Dimension(76, 22));
-        jBtnCancelar.setMinimumSize(new java.awt.Dimension(76, 22));
         jBtnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnCancelarActionPerformed(evt);
@@ -126,8 +164,6 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         getContentPane().add(jFfTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 137, 254, -1));
-        getContentPane().add(jTfMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(402, 223, 86, -1));
-        getContentPane().add(jTfAno, new org.netbeans.lib.awtextra.AbsoluteConstraints(494, 223, 78, -1));
 
         jLabel7.setText("Dia:");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 203, 78, -1));
@@ -141,53 +177,53 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         jCbGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Escolha um Genero", "Masculino", "Feminino" }));
         getContentPane().add(jCbGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 290, 250, -1));
 
+        try {
+            jFfDia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(jFfDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 230, 70, -1));
+
+        try {
+            jFfMes.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(jFfMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 230, 80, -1));
+
+        try {
+            jFfAno.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(jFfAno, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 230, 80, -1));
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCadastroActionPerformed
-        String nome = jTfNome.getText();
-        String telefone = jFfTelefone.getText();
-        Date dataNascimento = null;
-        String genero = (String) jCbGenero.getSelectedItem();
-        String ano = jTfAno.getText();
-        String mes = jTfMes.getText();
-        String dia = jTfDia.getText();
+        pegarDados();
 
-        if (!ano.isBlank() && !mes.isBlank() && !dia.isBlank()) {
-            if (ano.length() == 4 && Integer.parseInt(ano) > 0 && Integer.parseInt(ano) < 2024) {
-                if (mes.length() == 2 && Integer.parseInt(mes) >= 1 && Integer.parseInt(mes) <= 12) {
-                    if (dia.length() == 2 && Integer.parseInt(dia) >= 1 && Integer.parseInt(dia) <= 31) {
-                        try {
-                            SimpleDateFormat formato = new SimpleDateFormat("yyyy/MM/dd");
-                            java.util.Date utilDate = formato.parse(ano + "/" + mes + "/" + dia);
-                            dataNascimento = new Date(utilDate.getTime());
-                        } catch (ParseException e) {
-                            JOptionPane.showMessageDialog(null, "Erro ao converter a data");
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "O dia inserido é inválido");
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "O mês inserido é inválido");
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "O ano inserido é inválido");
-            }
+        if (camposNaoPreenchidos(nome, dia, mes, ano, telefone)) {
+            JOptionPane.showMessageDialog(null, "Algum campo não foi preenchido!");
+            return;
         }
 
-        if (!genero.equals("Escolha um Genero")) {
-            if (!telefone.isBlank() && !nome.isBlank()) {
-                ClienteDao dao = new ClienteDao();
-                cliente = new Cliente(nome, dataNascimento, telefone, genero);
-                dao.cadastro(cliente);
-                limparCampos();
-            } else {
-                JOptionPane.showMessageDialog(null, "Os campos não podem estar vazios!");
-            }
-        }else{
+        if (dataNascimento == null) {
+            JOptionPane.showMessageDialog(null, "A data inserida é inválida!");
+            return;
+        }
+
+        if (genero.equals("Escolha um Genero")) {
             JOptionPane.showMessageDialog(null, "Escolha um gênero válido!");
+            return;
         }
+
+        ClienteDao dao = new ClienteDao();
+        cliente = new Cliente(nome, dataNascimento, telefone, genero);
+        dao.registerCliente(cliente);
+        limparCampos();
 
     }//GEN-LAST:event_jBtnCadastroActionPerformed
 
@@ -238,6 +274,9 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     private javax.swing.JButton jBtnCadastro;
     private javax.swing.JButton jBtnCancelar;
     private javax.swing.JComboBox<String> jCbGenero;
+    private javax.swing.JFormattedTextField jFfAno;
+    private javax.swing.JFormattedTextField jFfDia;
+    private javax.swing.JFormattedTextField jFfMes;
     private javax.swing.JFormattedTextField jFfTelefone;
     private javax.swing.JLabel jLaSeta;
     private javax.swing.JLabel jLabel1;
@@ -251,9 +290,6 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTfAno;
-    private javax.swing.JTextField jTfDia;
-    private javax.swing.JTextField jTfMes;
     private javax.swing.JTextField jTfNome;
     // End of variables declaration//GEN-END:variables
 }

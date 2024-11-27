@@ -46,6 +46,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMiSair = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMeFuncionário = new javax.swing.JMenu();
+        jMiCadastrarFun = new javax.swing.JMenuItem();
+        jMiGerenciarFun = new javax.swing.JMenuItem();
+        jMiListarFun = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMiCadastrarCli = new javax.swing.JMenuItem();
         jMiGerenciarCli = new javax.swing.JMenuItem();
@@ -54,7 +57,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela Principal");
-        setPreferredSize(new java.awt.Dimension(600, 390));
         setResizable(false);
 
         jMiEditarConta.setText("Editar Conta");
@@ -76,9 +78,35 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMeUsuario);
 
         jMenu3.setText("   ");
+        jMenu3.setEnabled(false);
         jMenuBar1.add(jMenu3);
 
         jMeFuncionário.setText("Funcionário");
+
+        jMiCadastrarFun.setText("Cadastrar");
+        jMiCadastrarFun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMiCadastrarFunActionPerformed(evt);
+            }
+        });
+        jMeFuncionário.add(jMiCadastrarFun);
+
+        jMiGerenciarFun.setText("Gerenciar");
+        jMiGerenciarFun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMiGerenciarFunActionPerformed(evt);
+            }
+        });
+        jMeFuncionário.add(jMiGerenciarFun);
+
+        jMiListarFun.setText("Listar");
+        jMiListarFun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMiListarFunActionPerformed(evt);
+            }
+        });
+        jMeFuncionário.add(jMiListarFun);
+
         jMenuBar1.add(jMeFuncionário);
 
         jMenu1.setText("Cliente");
@@ -159,6 +187,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
         tela.setVisible(true);
     }//GEN-LAST:event_jMiGerenciarCliActionPerformed
 
+    private void jMiCadastrarFunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMiCadastrarFunActionPerformed
+        TelaRegister tela = new TelaRegister();
+        tela.setVisible(true);
+        tela.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        tela.admEdit(true);
+    }//GEN-LAST:event_jMiCadastrarFunActionPerformed
+
+    private void jMiGerenciarFunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMiGerenciarFunActionPerformed
+        TelaGerenciarFuncionario tela = new TelaGerenciarFuncionario();
+        dispose();
+        tela.setVisible(true);
+    }//GEN-LAST:event_jMiGerenciarFunActionPerformed
+
+    private void jMiListarFunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMiListarFunActionPerformed
+        TelaListarFuncionario tela = new TelaListarFuncionario();
+        dispose();
+        tela.setVisible(true);
+    }//GEN-LAST:event_jMiListarFunActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -199,9 +246,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMiCadastrarCli;
+    private javax.swing.JMenuItem jMiCadastrarFun;
     private javax.swing.JMenuItem jMiEditarConta;
     private javax.swing.JMenuItem jMiGerenciarCli;
+    private javax.swing.JMenuItem jMiGerenciarFun;
     private javax.swing.JMenuItem jMiListarCli;
+    private javax.swing.JMenuItem jMiListarFun;
     private javax.swing.JMenuItem jMiSair;
     // End of variables declaration//GEN-END:variables
 }

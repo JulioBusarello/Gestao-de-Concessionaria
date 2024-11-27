@@ -1,99 +1,91 @@
 package view;
 
-import dao.ClienteDao;
+import dao.FuncionarioDao;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import model.Cliente;
+import model.Funcionario;
 
 /**
  * @author julio_busarello
  */
+public class TelaListarFuncionario extends javax.swing.JFrame {
 
-public class TelaListarClientes extends javax.swing.JFrame {
-    
-    private ClienteDao clienteDao = new ClienteDao();
+    private FuncionarioDao funcionarioDao = new FuncionarioDao();
 
-    public TelaListarClientes() {
+    public TelaListarFuncionario() {
         initComponents();
-        loadCli();
+        loadFun();
     }
 
-    public void loadCli(){
+    private void loadFun() {
         DefaultTableModel defaultCli = new DefaultTableModel(new Object[]{
             "ID",
             "Nome",
-            "Data de Nascimento",
-            "Telefone",
-            "Genero"
+            "Login",
+            "Admin"
         }, 0);
 
-        List<Cliente> clientes = clienteDao.getAllClientes();
-        for (Cliente cliente : clientes) {
+        List<Funcionario> funcionarios = funcionarioDao.getAllFuncionarios();
+        for (Funcionario funcionario : funcionarios) {
             Object linha[] = new Object[]{
-                cliente.getId(),
-                cliente.getNome(),
-                cliente.getDataNascimento(),
-                cliente.getTelefone(),
-                cliente.getGenero()};
+                funcionario.getId(),
+                funcionario.getNome(),
+                funcionario.getLogin(),
+                funcionario.getAdmin() ? "Sim" : "Não"
+            };
             defaultCli.addRow(linha);
         }
-        jTbClientes.setModel(defaultCli);
-        jTbClientes.getColumnModel().getColumn(0).setPreferredWidth(5);
-        jTbClientes.setEnabled(false);
+        jTbFuncionarios.setModel(defaultCli);
+        jTbFuncionarios.getColumnModel().getColumn(0).setPreferredWidth(5);
+        jTbFuncionarios.setEnabled(false);
     }
-    
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
         jLaSeta = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTbClientes = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
+        jTbFuncionarios = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Lista de Clientes");
-        setMinimumSize(new java.awt.Dimension(600, 400));
-        setPreferredSize(new java.awt.Dimension(600, 400));
-        setResizable(false);
+        setTitle("Lista de Funcionários");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("LISTA DE FUNCIONÁRIOS");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 600, -1));
+
         jLaSeta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/seta.png"))); // NOI18N
-        jLaSeta.setText("jLabel3");
         jLaSeta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLaSetaMouseClicked(evt);
             }
         });
-        getContentPane().add(jLaSeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 20, 20));
+        getContentPane().add(jLaSeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        jTbClientes.setModel(new javax.swing.table.DefaultTableModel(
+        jTbFuncionarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Nome", "Data de Nascimento", "Telefone", "Genero"
+                "ID", "Nome", "Login", "Admin"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jTbClientes.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTbClientes);
+        jTbFuncionarios.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jTbFuncionarios);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 580, 330));
-
-        jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("LISTA DE CLIENTES");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 600, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -120,20 +112,20 @@ public class TelaListarClientes extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaListarClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaListarFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaListarClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaListarFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaListarClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaListarFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaListarClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaListarFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaListarClientes().setVisible(true);
+                new TelaListarFuncionario().setVisible(true);
             }
         });
     }
@@ -142,6 +134,6 @@ public class TelaListarClientes extends javax.swing.JFrame {
     private javax.swing.JLabel jLaSeta;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTbClientes;
+    private javax.swing.JTable jTbFuncionarios;
     // End of variables declaration//GEN-END:variables
 }
