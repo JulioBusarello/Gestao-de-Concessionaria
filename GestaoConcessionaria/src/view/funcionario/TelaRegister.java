@@ -28,13 +28,14 @@ public class TelaRegister extends javax.swing.JFrame {
     }
 
     public void admEdit(boolean admin) {
-        jLaReturnLogin.setVisible(false);
+        jLaSeta.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLaSeta = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jTfLogin = new javax.swing.JTextField();
@@ -44,7 +45,6 @@ public class TelaRegister extends javax.swing.JFrame {
         jBtnRegister = new javax.swing.JButton();
         jPfConfirmPass = new javax.swing.JPasswordField();
         jLabel5 = new javax.swing.JLabel();
-        jLaReturnLogin = new javax.swing.JLabel();
         jTfNome = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
 
@@ -53,19 +53,36 @@ public class TelaRegister extends javax.swing.JFrame {
         setBackground(new java.awt.Color(60, 64, 65));
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLaSeta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/seta.png"))); // NOI18N
+        jLaSeta.setText("jLabel3");
+        jLaSeta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLaSeta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLaSetaMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLaSeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 20, 20));
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("REGISTRO");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 14, 254, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/login.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
         jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 400));
+        getContentPane().add(jTfLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 137, 254, -1));
+        getContentPane().add(jPfPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 203, 254, -1));
 
         jLabel3.setText("Senha:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 181, -1, -1));
 
         jLabel4.setText("Login:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 115, -1, -1));
 
         jBtnRegister.setText("Registrar");
         jBtnRegister.addActionListener(new java.awt.event.ActionListener() {
@@ -73,79 +90,19 @@ public class TelaRegister extends javax.swing.JFrame {
                 jBtnRegisterActionPerformed(evt);
             }
         });
+        getContentPane().add(jBtnRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 313, -1, -1));
+        getContentPane().add(jPfConfirmPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 269, 254, -1));
 
         jLabel5.setText("Confirmar Senha:");
-
-        jLaReturnLogin.setText("Retornar para o login");
-        jLaReturnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLaReturnLoginMouseClicked(evt);
-            }
-        });
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 247, -1, -1));
+        getContentPane().add(jTfNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 75, 254, -1));
 
         jLabel6.setText("Nome:");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jBtnRegister)
-                    .addComponent(jPfConfirmPass)
-                    .addComponent(jLabel6)
-                    .addComponent(jTfNome)
-                    .addComponent(jPfPassword)
-                    .addComponent(jLaReturnLogin)
-                    .addComponent(jTfLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE))
-                .addGap(0, 28, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPfConfirmPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jBtnRegister)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLaReturnLogin)
-                .addGap(32, 32, 32))
-        );
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 53, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jLaReturnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLaReturnLoginMouseClicked
-        TelaLogin tela = new TelaLogin();
-        dispose();
-        tela.setVisible(true);
-    }//GEN-LAST:event_jLaReturnLoginMouseClicked
 
     private void jBtnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegisterActionPerformed
         String nome = jTfNome.getText();
@@ -167,6 +124,12 @@ public class TelaRegister extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jBtnRegisterActionPerformed
+
+    private void jLaSetaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLaSetaMouseClicked
+        TelaLogin tela = new TelaLogin();
+        dispose();
+        tela.setVisible(true);
+    }//GEN-LAST:event_jLaSetaMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -203,7 +166,7 @@ public class TelaRegister extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnRegister;
-    private javax.swing.JLabel jLaReturnLogin;
+    private javax.swing.JLabel jLaSeta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

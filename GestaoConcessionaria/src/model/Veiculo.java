@@ -9,22 +9,21 @@ public class Veiculo {
     // --- Atributos
     private Long id;
     private String placa;
-    private String chassi;
     private String marca;
     private String modelo;
     private String cor;
     private int ano;
     private double preco;
     private boolean anunciado;
+    private Long id_cliente;
     
     // --- Construtores
     
     public Veiculo(){
     }
     
-    public Veiculo(String placa, String chassi, String marca, String modelo, String cor, int ano, double preco){
+    public Veiculo(String placa, String marca, String modelo, String cor, int ano, double preco){
         this.placa = placa;
-        this.chassi = chassi;
         this.marca = marca;
         this.modelo = modelo;
         this.cor = cor;
@@ -33,16 +32,27 @@ public class Veiculo {
         this.anunciado = false;
     }
     
-    public Veiculo(Long id, String placa, String chassi, String marca, String modelo, String cor, int ano, double preco, boolean anunciado){
+    public Veiculo(Long id, String placa, String marca, String modelo, String cor, int ano, double preco, boolean anunciado){
         this.id = id;
         this.placa = placa;
-        this.chassi = chassi;
         this.marca = marca;
         this.modelo = modelo;
         this.cor = cor;
         this.ano = ano;
         this.preco = preco;
         this.anunciado = anunciado;
+    }
+    
+    public Veiculo(Long id, String placa, String marca, String modelo, String cor, int ano, double preco, boolean anunciado, Long id_cliente){
+        this.id = id;
+        this.placa = placa;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.cor = cor;
+        this.ano = ano;
+        this.preco = preco;
+        this.anunciado = anunciado;
+        this.id_cliente = id_cliente;
     }
     
     // --- Getters and Setters
@@ -61,14 +71,6 @@ public class Veiculo {
 
     public void setPlaca(String placa) {
         this.placa = placa;
-    }
-
-    public String getChassi() {
-        return chassi;
-    }
-
-    public void setChassi(String chassi) {
-        this.chassi = chassi;
     }
 
     public String getMarca() {
@@ -110,6 +112,23 @@ public class Veiculo {
     public void setPreco(double preco) {
         this.preco = preco;
     }
+
+    public boolean isAnunciado() {
+        return anunciado;
+    }
+
+    public void setAnunciado(boolean anunciado) {
+        this.anunciado = anunciado;
+    }
+
+    public Long getId_cliente() {
+        return id_cliente;
+    }
+
+    public void setId_cliente(Long id_cliente) {
+        this.id_cliente = id_cliente;
+    }
+    
     
     
 }

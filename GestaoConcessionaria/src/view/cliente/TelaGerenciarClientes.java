@@ -64,6 +64,7 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
         }
         jTbClientes.setModel(defaultCli);
         jTbClientes.getColumnModel().getColumn(0).setPreferredWidth(5);
+        jTbClientes.setDefaultEditor(Object.class, null);
     }
 
     private void pegarDados() {
@@ -156,6 +157,7 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLaSeta = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTfIdCliente = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -170,7 +172,6 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLaSeta = new javax.swing.JLabel();
         jBtnLimpar = new javax.swing.JButton();
         jBtnExcluir = new javax.swing.JButton();
         jBtnSalvar = new javax.swing.JButton();
@@ -182,6 +183,16 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
         setTitle("Gerenciamento de Clientes");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLaSeta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/seta.png"))); // NOI18N
+        jLaSeta.setText("jLabel3");
+        jLaSeta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLaSeta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLaSetaMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLaSeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 20, 20));
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -255,14 +266,6 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
         jLabel9.setText("Ano:");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 80, 78, -1));
 
-        jLaSeta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/seta.png"))); // NOI18N
-        jLaSeta.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLaSetaMouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLaSeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
-
         jBtnLimpar.setText("Limpar");
         jBtnLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -327,13 +330,6 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLaSetaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLaSetaMouseClicked
-        TelaPrincipal tela = new TelaPrincipal();
-        dispose();
-        tela.setVisible(true);
-        tela.telaFuncionario();
-    }//GEN-LAST:event_jLaSetaMouseClicked
-
     private void jTbClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTbClientesMouseClicked
         int linha = jTbClientes.getSelectedRow();
         if (linha != -1) {
@@ -378,6 +374,13 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
             jBtnSalvar.setEnabled(true);
         }
     }//GEN-LAST:event_jFfAnoKeyReleased
+
+    private void jLaSetaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLaSetaMouseClicked
+        TelaPrincipal tela = new TelaPrincipal();
+        dispose();
+        tela.setVisible(true);
+        tela.telaFuncionario();
+    }//GEN-LAST:event_jLaSetaMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

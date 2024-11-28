@@ -40,7 +40,7 @@ public class TelaListarClientes extends javax.swing.JFrame {
         }
         jTbClientes.setModel(defaultCli);
         jTbClientes.getColumnModel().getColumn(0).setPreferredWidth(5);
-        jTbClientes.setEnabled(false);
+        jTbClientes.setDefaultEditor(Object.class, null);
     }
     
     
@@ -49,25 +49,16 @@ public class TelaListarClientes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLaSeta = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTbClientes = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
+        jLaSeta = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Lista de Clientes");
         setMinimumSize(new java.awt.Dimension(600, 400));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLaSeta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/seta.png"))); // NOI18N
-        jLaSeta.setText("jLabel3");
-        jLaSeta.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLaSetaMouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLaSeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 20, 20));
 
         jTbClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -94,6 +85,16 @@ public class TelaListarClientes extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("LISTA DE CLIENTES");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 600, -1));
+
+        jLaSeta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/seta.png"))); // NOI18N
+        jLaSeta.setText("jLabel3");
+        jLaSeta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLaSeta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLaSetaMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLaSeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 20, 20));
 
         pack();
         setLocationRelativeTo(null);

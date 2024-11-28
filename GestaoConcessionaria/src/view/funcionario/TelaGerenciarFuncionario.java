@@ -1,11 +1,9 @@
 package view.funcionario;
 
-import dao.ClienteDao;
 import dao.FuncionarioDao;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.Cliente;
 import model.Funcionario;
 import view.TelaPrincipal;
 
@@ -71,6 +69,7 @@ public class TelaGerenciarFuncionario extends javax.swing.JFrame {
         }
         jTbFuncionarios.setModel(defaultFun);
         jTbFuncionarios.getColumnModel().getColumn(0).setPreferredWidth(5);
+        jTbFuncionarios.setDefaultEditor(Object.class, null);
     }
 
     private Long puxarFun(int selection) {
@@ -156,6 +155,7 @@ public class TelaGerenciarFuncionario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLaSeta = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTfIdFun = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -165,7 +165,6 @@ public class TelaGerenciarFuncionario extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTbFuncionarios = new javax.swing.JTable();
-        jLaSeta = new javax.swing.JLabel();
         jBtnLimpar = new javax.swing.JButton();
         jBtnExcluir = new javax.swing.JButton();
         jBtnSalvar = new javax.swing.JButton();
@@ -178,6 +177,16 @@ public class TelaGerenciarFuncionario extends javax.swing.JFrame {
         setTitle("Gerenciamento de Funcionários");
         setMinimumSize(new java.awt.Dimension(600, 400));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLaSeta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/seta.png"))); // NOI18N
+        jLaSeta.setText("jLabel3");
+        jLaSeta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLaSeta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLaSetaMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLaSeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 20, 20));
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -242,14 +251,6 @@ public class TelaGerenciarFuncionario extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTbFuncionarios);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 244, 588, 150));
-
-        jLaSeta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/seta.png"))); // NOI18N
-        jLaSeta.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLaSetaMouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLaSeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         jBtnLimpar.setText("Limpar");
         jBtnLimpar.addActionListener(new java.awt.event.ActionListener() {
@@ -317,13 +318,6 @@ public class TelaGerenciarFuncionario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTbFuncionariosMouseClicked
 
-    private void jLaSetaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLaSetaMouseClicked
-        TelaPrincipal tela = new TelaPrincipal();
-        dispose();
-        tela.setVisible(true);
-        tela.telaFuncionario();
-    }//GEN-LAST:event_jLaSetaMouseClicked
-
     private void jBtnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnLimparActionPerformed
         telaGerenciar(false);
     }//GEN-LAST:event_jBtnLimparActionPerformed
@@ -371,6 +365,13 @@ public class TelaGerenciarFuncionario extends javax.swing.JFrame {
     private void jCbAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCbAdminActionPerformed
         jBtnSalvar.setEnabled(true);
     }//GEN-LAST:event_jCbAdminActionPerformed
+
+    private void jLaSetaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLaSetaMouseClicked
+        TelaPrincipal tela = new TelaPrincipal();
+        dispose();
+        tela.setVisible(true);
+        tela.telaFuncionario();
+    }//GEN-LAST:event_jLaSetaMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

@@ -43,8 +43,8 @@ public class ClienteDao {
     public List<Cliente> getAllClientes() {
         List<Cliente> clientes = new ArrayList<>();
         String sql = "SELECT * FROM cliente";
-        try (Connection connection = new Conexao().getConexao(); PreparedStatement stmt = connection.prepareStatement(sql)) {
-            try (ResultSet rs = stmt.executeQuery()) {
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     clientes.add(new Cliente(
                             rs.getLong("id"),
