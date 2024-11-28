@@ -21,7 +21,13 @@ CREATE TABLE cliente(
 CREATE TABLE veiculo (
 	id BIGINT AUTO_INCREMENT PRIMARY KEY,
     placa VARCHAR(7) NOT NULL,
-    
+    chassi VARCHAR(17) NOT NULL,
+    marca VARCHAR(255) NOT NULL,
+    modelo VARCHAR(255) NOT NULL,
+    ano INTEGER(4) NOT NULL,
+    cor VARCHAR(255) NOT NULL,
+    preco DECIMAL(10,2) NOT NULL,
+    anunciado BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 INSERT INTO funcionario (nome, login, senha, admin) VALUES("Admin", "admin", "Senai123", true);

@@ -1,5 +1,13 @@
 package view;
 
+import view.funcionario.TelaRegister;
+import view.funcionario.TelaLogin;
+import view.funcionario.TelaEditarConta;
+import view.funcionario.TelaListarFuncionario;
+import view.funcionario.TelaGerenciarFuncionario;
+import view.cliente.TelaCadastroCliente;
+import view.cliente.TelaListarClientes;
+import view.cliente.TelaGerenciarClientes;
 import model.Funcionario;
 
 /**
@@ -49,6 +57,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMiGerenciarCli = new javax.swing.JMenuItem();
         jMiListarCli = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMiAnunciarVe = new javax.swing.JMenuItem();
+        jMiCadastrarVe = new javax.swing.JMenuItem();
+        jMiGerenciarVe = new javax.swing.JMenuItem();
+        jMiListar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela Principal");
@@ -133,6 +145,39 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Veiculos");
+
+        jMiAnunciarVe.setText("Anunciar");
+        jMiAnunciarVe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMiAnunciarVeActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMiAnunciarVe);
+
+        jMiCadastrarVe.setText("Cadastrar");
+        jMiCadastrarVe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMiCadastrarVeActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMiCadastrarVe);
+
+        jMiGerenciarVe.setText("Gerenciar");
+        jMiGerenciarVe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMiGerenciarVeActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMiGerenciarVe);
+
+        jMiListar.setText("Listar");
+        jMiListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMiListarActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMiListar);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -202,6 +247,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
         tela.setVisible(true);
     }//GEN-LAST:event_jMiListarFunActionPerformed
 
+    private void jMiAnunciarVeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMiAnunciarVeActionPerformed
+        
+    }//GEN-LAST:event_jMiAnunciarVeActionPerformed
+
+    private void jMiCadastrarVeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMiCadastrarVeActionPerformed
+        
+    }//GEN-LAST:event_jMiCadastrarVeActionPerformed
+
+    private void jMiGerenciarVeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMiGerenciarVeActionPerformed
+        
+    }//GEN-LAST:event_jMiGerenciarVeActionPerformed
+
+    private void jMiListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMiListarActionPerformed
+        
+    }//GEN-LAST:event_jMiListarActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -241,11 +302,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMiAnunciarVe;
     private javax.swing.JMenuItem jMiCadastrarCli;
     private javax.swing.JMenuItem jMiCadastrarFun;
+    private javax.swing.JMenuItem jMiCadastrarVe;
     private javax.swing.JMenuItem jMiEditarConta;
     private javax.swing.JMenuItem jMiGerenciarCli;
     private javax.swing.JMenuItem jMiGerenciarFun;
+    private javax.swing.JMenuItem jMiGerenciarVe;
+    private javax.swing.JMenuItem jMiListar;
     private javax.swing.JMenuItem jMiListarCli;
     private javax.swing.JMenuItem jMiListarFun;
     private javax.swing.JMenuItem jMiSair;
