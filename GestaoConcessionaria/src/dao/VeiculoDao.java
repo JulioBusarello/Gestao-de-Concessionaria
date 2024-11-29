@@ -67,6 +67,31 @@ public class VeiculoDao {
         return veiculos;
     }
     
+    public List<Veiculo> getAll() {
+        List<Veiculo> veiculos = new ArrayList<>();
+        String sql = "SELECT * FROM veiculo";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    veiculos.add(new Veiculo(
+                            rs.getLong("id"),
+                            rs.getString("placa"),
+                            rs.getString("marca"),
+                            rs.getString("modelo"),
+                            rs.getString("cor"),
+                            rs.getInt("ano"),
+                            rs.getDouble("preco"),
+                            rs.getBoolean("anunciado"),
+                            rs.getLong("id_cliente")
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return veiculos;
+    }
+    
     public void anunciarVeiculo(Long id) {
         String sql = "UPDATE veiculo SET anunciado = true WHERE id = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {

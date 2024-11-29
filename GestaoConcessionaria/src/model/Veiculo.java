@@ -41,6 +41,7 @@ public class Veiculo {
         this.ano = ano;
         this.preco = preco;
         this.anunciado = anunciado;
+        this.id_cliente = null;
     }
     
     public Veiculo(Long id, String placa, String marca, String modelo, String cor, int ano, double preco, boolean anunciado, Long id_cliente){
@@ -129,6 +130,13 @@ public class Veiculo {
         this.id_cliente = id_cliente;
     }
     
+    public boolean hasDono(){
+        if(this.id_cliente != null && this.id_cliente != 0){
+            return true;
+        } else{
+            return false;
+        }
+    }
     
     
 }

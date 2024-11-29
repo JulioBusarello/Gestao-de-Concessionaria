@@ -11,6 +11,8 @@ import view.cliente.TelaGerenciarClientes;
 import model.Funcionario;
 import view.veiculo.TelaAnunciarVeiculo;
 import view.veiculo.TelaCadastrarVeiculo;
+import view.veiculo.TelaGerenciarVeiculo;
+import view.veiculo.TelaListarVeiculo;
 
 /**
  * @author julio_busarello
@@ -262,11 +264,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMiCadastrarVeActionPerformed
 
     private void jMiGerenciarVeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMiGerenciarVeActionPerformed
-        
+        TelaGerenciarVeiculo tela = new TelaGerenciarVeiculo();
+        dispose();
+        tela.setVisible(true);
     }//GEN-LAST:event_jMiGerenciarVeActionPerformed
 
     private void jMiListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMiListarActionPerformed
-        
+        TelaListarVeiculo tela = new TelaListarVeiculo();
+        dispose();
+        tela.setVisible(true);
     }//GEN-LAST:event_jMiListarActionPerformed
 
     public static void main(String args[]) {
