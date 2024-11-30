@@ -78,7 +78,7 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
         this.dataNascimento = dataConverter.converterParaData(ano, mes, dia);
     }
 
-    private void puxarCli(int selection) {
+    private void mostrarDados(int selection) {
         String[] data = jTbClientes.getValueAt(selection, 2).toString().split("-");
 
         jTfIdCliente.setText(jTbClientes.getValueAt(selection, 0).toString());
@@ -108,7 +108,7 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
     private void deletarCli() {
         Long idCli = Long.parseLong(jTfIdCliente.getText());
 
-        int optDel = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir este cliente?",
+        int optDel = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir este Cliente?",
                 "Confirmar", JOptionPane.YES_NO_OPTION);
 
         if (optDel == JOptionPane.YES_NO_OPTION) {
@@ -333,7 +333,7 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
     private void jTbClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTbClientesMouseClicked
         int linha = jTbClientes.getSelectedRow();
         if (linha != -1) {
-            puxarCli(linha);
+            mostrarDados(linha);
         }
     }//GEN-LAST:event_jTbClientesMouseClicked
 

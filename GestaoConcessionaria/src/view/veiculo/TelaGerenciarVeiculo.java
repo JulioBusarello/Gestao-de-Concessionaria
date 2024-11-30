@@ -1,24 +1,48 @@
 package view.veiculo;
 
+import dao.FuncionarioDao;
 import dao.VeiculoDao;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.Funcionario;
 import model.Veiculo;
 import view.TelaPrincipal;
 
 /**
  * @author julio
  */
-
 public class TelaGerenciarVeiculo extends javax.swing.JFrame {
 
     private VeiculoDao veiculoDao = new VeiculoDao();
 
+    Long id;
+    String placa, marca, modelo, cor;
+    int ano;
+    Double preco;
+
     public TelaGerenciarVeiculo() {
         initComponents();
+        loadVe();
+        tela(false);
     }
-    
-    private void loadVe(){
+
+    private void tela(boolean ativo) {
+        jTfIdVeiculo.setVisible(false);
+
+        jTfPlaca.setEnabled(ativo);
+        jTfMarca.setEnabled(ativo);
+        jTfModelo.setEnabled(ativo);
+        jTfAno.setEnabled(ativo);
+        jTfCor.setEnabled(ativo);
+        jTfPreco.setEnabled(ativo);
+
+        jBtnSalvar.setEnabled(false);
+        jBtnExcluir.setEnabled(ativo);
+        jBtnLimpar.setEnabled(ativo);
+    }
+
+    private void loadVe() {
         DefaultTableModel defaultVe = new DefaultTableModel(new Object[]{
             "ID",
             "Placa",
@@ -42,8 +66,7 @@ public class TelaGerenciarVeiculo extends javax.swing.JFrame {
                 veiculo.getCor(),
                 veiculo.getPreco(),
                 veiculo.isAnunciado() ? "Sim" : "Não",
-                veiculo.hasDono() ? veiculo.getId_cliente() : "Sem dono",
-            };
+                veiculo.hasDono() ? veiculo.getId_cliente() : "Sem dono",};
             defaultVe.addRow(linha);
         }
 
@@ -51,7 +74,7 @@ public class TelaGerenciarVeiculo extends javax.swing.JFrame {
         jTbVeiculos.getColumnModel().getColumn(0).setPreferredWidth(5);
         jTbVeiculos.setDefaultEditor(Object.class, null);
     }
-    
+
     private void limparVe() {
         jTfIdVeiculo.setText("");
         jTfPlaca.setText("");
@@ -60,9 +83,57 @@ public class TelaGerenciarVeiculo extends javax.swing.JFrame {
         jTfAno.setText("");
         jTfCor.setText("");
         jTfPreco.setText("");
-        
+
         jTbVeiculos.clearSelection();
-        //telaAnunciar(false);
+        tela(false);
+    }
+
+    private void mostrarDados(int selection) {
+        jTfIdVeiculo.setText(jTbVeiculos.getValueAt(selection, 0).toString());
+
+        jTfPlaca.setText(jTbVeiculos.getValueAt(selection, 1).toString());
+        jTfMarca.setText(jTbVeiculos.getValueAt(selection, 2).toString());
+        jTfModelo.setText(jTbVeiculos.getValueAt(selection, 3).toString());
+        jTfAno.setText(jTbVeiculos.getValueAt(selection, 4).toString());
+        jTfCor.setText(jTbVeiculos.getValueAt(selection, 5).toString());
+        jTfPreco.setText(jTbVeiculos.getValueAt(selection, 6).toString());
+
+        tela(true);
+    }
+
+    private void pegarDados() {
+        this.id = Long.valueOf(jTfIdVeiculo.getText());
+        this.placa = jTfPlaca.getText();
+        this.marca = jTfMarca.getText();
+        this.modelo = jTfModelo.getText();
+        this.ano = Integer.parseInt(jTfAno.getText());
+        this.cor = jTfCor.getText();
+        this.preco = Double.valueOf(jTfPreco.getText());
+    }
+
+    private void salvarVe() {
+        pegarDados();
+
+        if (camposNaoPreenchidos()) {
+            JOptionPane.showMessageDialog(null, "Algum campo não foi preenchido!");
+            return;
+        }
+
+        int optSav = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja salvar as alterações deste Veículo?",
+                "Confirmar", JOptionPane.YES_NO_OPTION);
+
+        if (optSav == JOptionPane.YES_NO_OPTION) {
+            VeiculoDao dao = new VeiculoDao();
+            Veiculo veiculo = new Veiculo(id, placa, marca, modelo, cor, ano, preco);
+            dao.editarVeiculo(veiculo);
+        }
+
+        limparVe();
+        loadVe();
+    }
+    
+    private boolean camposNaoPreenchidos(){
+        return jTfPlaca.getText().isBlank() || jTfMarca.getText().isBlank() || jTfModelo.getText().isBlank() || jTfAno.getText().isBlank() || jTfCor.getText().isBlank() || jTfPreco.getText().isBlank();
     }
 
     @SuppressWarnings("unchecked")
@@ -86,7 +157,7 @@ public class TelaGerenciarVeiculo extends javax.swing.JFrame {
         jBtnExcluir = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLaSeta = new javax.swing.JLabel();
-        jBtnLimpar1 = new javax.swing.JButton();
+        jBtnLimpar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTbVeiculos = new javax.swing.JTable();
 
@@ -94,6 +165,12 @@ public class TelaGerenciarVeiculo extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(700, 400));
         setPreferredSize(null);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jTfPlaca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTfPlacaKeyReleased(evt);
+            }
+        });
         getContentPane().add(jTfPlaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 170, -1));
 
         jLabel1.setText("Placa:");
@@ -104,10 +181,22 @@ public class TelaGerenciarVeiculo extends javax.swing.JFrame {
 
         jLabel3.setText("Marca:");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, -1, -1));
+
+        jTfMarca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTfMarcaKeyReleased(evt);
+            }
+        });
         getContentPane().add(jTfMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 170, -1));
 
         jLabel4.setText("Modelo:");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, -1, -1));
+
+        jTfModelo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTfModeloKeyReleased(evt);
+            }
+        });
         getContentPane().add(jTfModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 170, -1));
 
         jBtnSalvar.setText("Salvar");
@@ -126,8 +215,26 @@ public class TelaGerenciarVeiculo extends javax.swing.JFrame {
 
         jLabel7.setText("Ano:");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 60, -1, -1));
+
+        jTfAno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTfAnoKeyReleased(evt);
+            }
+        });
         getContentPane().add(jTfAno, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, 170, -1));
+
+        jTfCor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTfCorKeyReleased(evt);
+            }
+        });
         getContentPane().add(jTfCor, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, 170, -1));
+
+        jTfPreco.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTfPrecoKeyReleased(evt);
+            }
+        });
         getContentPane().add(jTfPreco, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, 170, -1));
 
         jBtnExcluir.setText("Excluir");
@@ -153,13 +260,13 @@ public class TelaGerenciarVeiculo extends javax.swing.JFrame {
         });
         getContentPane().add(jLaSeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 20, 20));
 
-        jBtnLimpar1.setText("Limpar");
-        jBtnLimpar1.addActionListener(new java.awt.event.ActionListener() {
+        jBtnLimpar.setText("Limpar");
+        jBtnLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnLimpar1ActionPerformed(evt);
+                jBtnLimparActionPerformed(evt);
             }
         });
-        getContentPane().add(jBtnLimpar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 180, 110, -1));
+        getContentPane().add(jBtnLimpar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 180, 110, -1));
 
         jTbVeiculos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -178,6 +285,11 @@ public class TelaGerenciarVeiculo extends javax.swing.JFrame {
             }
         });
         jTbVeiculos.getTableHeader().setReorderingAllowed(false);
+        jTbVeiculos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTbVeiculosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTbVeiculos);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 680, 170));
@@ -187,11 +299,20 @@ public class TelaGerenciarVeiculo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSalvarActionPerformed
-        
+        salvarVe(); 
     }//GEN-LAST:event_jBtnSalvarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
-        
+        Long idVe = Long.valueOf(jTfIdVeiculo.getText());
+
+        int optDel = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir este Veículo?",
+                "Confirmar", JOptionPane.YES_NO_OPTION);
+
+        if (optDel == JOptionPane.YES_NO_OPTION) {
+            veiculoDao.deleteVeiculo(idVe);
+            loadVe();
+        }
+        limparVe();
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jLaSetaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLaSetaMouseClicked
@@ -201,9 +322,64 @@ public class TelaGerenciarVeiculo extends javax.swing.JFrame {
         tela.telaFuncionario();
     }//GEN-LAST:event_jLaSetaMouseClicked
 
-    private void jBtnLimpar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnLimpar1ActionPerformed
+    private void jBtnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnLimparActionPerformed
         limparVe();
-    }//GEN-LAST:event_jBtnLimpar1ActionPerformed
+    }//GEN-LAST:event_jBtnLimparActionPerformed
+
+    private void jTbVeiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTbVeiculosMouseClicked
+        int linha = jTbVeiculos.getSelectedRow();
+        if (linha != -1) {
+            mostrarDados(linha);
+        }
+    }//GEN-LAST:event_jTbVeiculosMouseClicked
+
+    private void jTfPlacaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTfPlacaKeyReleased
+        if(camposNaoPreenchidos()){
+            jBtnSalvar.setEnabled(false);
+        } else{
+            jBtnSalvar.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTfPlacaKeyReleased
+
+    private void jTfMarcaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTfMarcaKeyReleased
+        if(camposNaoPreenchidos()){
+            jBtnSalvar.setEnabled(false);
+        } else{
+            jBtnSalvar.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTfMarcaKeyReleased
+
+    private void jTfModeloKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTfModeloKeyReleased
+        if(camposNaoPreenchidos()){
+            jBtnSalvar.setEnabled(false);
+        } else{
+            jBtnSalvar.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTfModeloKeyReleased
+
+    private void jTfAnoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTfAnoKeyReleased
+        if(camposNaoPreenchidos()){
+            jBtnSalvar.setEnabled(false);
+        } else{
+            jBtnSalvar.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTfAnoKeyReleased
+
+    private void jTfCorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTfCorKeyReleased
+        if(camposNaoPreenchidos()){
+            jBtnSalvar.setEnabled(false);
+        } else{
+            jBtnSalvar.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTfCorKeyReleased
+
+    private void jTfPrecoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTfPrecoKeyReleased
+        if(camposNaoPreenchidos()){
+            jBtnSalvar.setEnabled(false);
+        } else{
+            jBtnSalvar.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTfPrecoKeyReleased
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -239,7 +415,7 @@ public class TelaGerenciarVeiculo extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnExcluir;
-    private javax.swing.JButton jBtnLimpar1;
+    private javax.swing.JButton jBtnLimpar;
     private javax.swing.JButton jBtnSalvar;
     private javax.swing.JLabel jLaSeta;
     private javax.swing.JLabel jLabel1;

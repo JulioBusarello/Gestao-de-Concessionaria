@@ -72,7 +72,7 @@ public class TelaGerenciarFuncionario extends javax.swing.JFrame {
         jTbFuncionarios.setDefaultEditor(Object.class, null);
     }
 
-    private Long puxarFun(int selection) {
+    private Long mostrarDados(int selection) {
         Long id = Long.valueOf(jTbFuncionarios.getValueAt(selection, 0).toString());
         
         jTfIdFun.setText(id.toString());
@@ -181,7 +181,7 @@ public class TelaGerenciarFuncionario extends javax.swing.JFrame {
 
         jLaSeta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/seta.png"))); // NOI18N
         jLaSeta.setText("jLabel3");
-        jLaSeta.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLaSeta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLaSeta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLaSetaMouseClicked(evt);
@@ -312,7 +312,7 @@ public class TelaGerenciarFuncionario extends javax.swing.JFrame {
 
     private void jTbFuncionariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTbFuncionariosMouseClicked
         int selection = jTbFuncionarios.getSelectedRow();
-        Long id = puxarFun(selection);
+        Long id = mostrarDados(selection);
         
         if(funcionario.getId().equals(id)){
             jCbAdmin.setEnabled(false);
@@ -370,8 +370,8 @@ public class TelaGerenciarFuncionario extends javax.swing.JFrame {
     private void jLaSetaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLaSetaMouseClicked
         TelaPrincipal tela = new TelaPrincipal();
         dispose();
+        tela.objectFuncionario(funcionario);
         tela.setVisible(true);
-        tela.telaFuncionario();
     }//GEN-LAST:event_jLaSetaMouseClicked
 
     public static void main(String args[]) {

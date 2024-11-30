@@ -66,7 +66,7 @@ public class VeiculoDao {
         }
         return veiculos;
     }
-    
+
     public List<Veiculo> getAll() {
         List<Veiculo> veiculos = new ArrayList<>();
         String sql = "SELECT * FROM veiculo";
@@ -91,18 +91,53 @@ public class VeiculoDao {
         }
         return veiculos;
     }
-    
+
     public void anunciarVeiculo(Long id) {
         String sql = "UPDATE veiculo SET anunciado = true WHERE id = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setLong(1, id);
-            
+
             ps.executeUpdate();
             ps.close();
-            
+
             JOptionPane.showMessageDialog(null, "O Veiculo foi anunciado com sucesso!");
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void deleteVeiculo(Long id) {
+        String sql = "DELETE FROM veiculo WHERE id = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setLong(1, id);
+
+            ps.executeUpdate();
+            ps.close();
+
+            JOptionPane.showMessageDialog(null, "O Veiculo foi deletado com sucesso!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Veiculo editarVeiculo(Veiculo veiculo) {
+        String sql = "UPDATE veiculo SET placa = ?, marca = ?, modelo = ?, cor = ?, ano = ?, preco = ? WHERE id = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, veiculo.getPlaca());
+            ps.setString(2, veiculo.getMarca());
+            ps.setString(3, veiculo.getModelo());
+            ps.setString(4, veiculo.getCor());
+            ps.setDouble(5, veiculo.getAno());
+            ps.setDouble(6, veiculo.getPreco());
+            ps.setLong(7, veiculo.getId());
+
+            ps.execute();
+            ps.close();
+
+            JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return veiculo;
     }
 }

@@ -32,6 +32,16 @@ public class Veiculo {
         this.anunciado = false;
     }
     
+    public Veiculo(Long id, String placa, String marca, String modelo, String cor, int ano, double preco){
+        this.id = id;
+        this.placa = placa;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.cor = cor;
+        this.ano = ano;
+        this.preco = preco;
+    }
+    
     public Veiculo(Long id, String placa, String marca, String modelo, String cor, int ano, double preco, boolean anunciado){
         this.id = id;
         this.placa = placa;
