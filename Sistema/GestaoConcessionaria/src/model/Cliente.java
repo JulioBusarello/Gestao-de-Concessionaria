@@ -73,14 +73,5 @@ public class Cliente {
     public void setGenero(String genero) {
         this.genero = genero;
     }
-
-    // ---- Métodos
-    public void visualizarVeiculos() {
-
-    }
-
-    public void agendarVisita(Date data) {
-
-    }
     
 }

@@ -88,7 +88,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jBtnCadastro = new javax.swing.JButton();
-        jBtnCancelar = new javax.swing.JButton();
+        jBtnLimpar = new javax.swing.JButton();
         jFfTelefone = new javax.swing.JFormattedTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -110,7 +110,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
 
         jLaSeta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/seta.png"))); // NOI18N
         jLaSeta.setText("jLabel3");
-        jLaSeta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLaSeta.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLaSeta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLaSetaMouseClicked(evt);
@@ -151,13 +151,13 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         });
         getContentPane().add(jBtnCadastro, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 333, -1, -1));
 
-        jBtnCancelar.setText("Cancelar");
-        jBtnCancelar.addActionListener(new java.awt.event.ActionListener() {
+        jBtnLimpar.setText("Limpar");
+        jBtnLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnCancelarActionPerformed(evt);
+                jBtnLimparActionPerformed(evt);
             }
         });
-        getContentPane().add(jBtnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 333, -1, -1));
+        getContentPane().add(jBtnLimpar, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 333, -1, -1));
 
         try {
             jFfTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) # ####-####")));
@@ -228,9 +228,9 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jBtnCadastroActionPerformed
 
-    private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
+    private void jBtnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnLimparActionPerformed
         limparCampos();
-    }//GEN-LAST:event_jBtnCancelarActionPerformed
+    }//GEN-LAST:event_jBtnLimparActionPerformed
 
     private void jLaSetaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLaSetaMouseClicked
         TelaPrincipal tela = new TelaPrincipal();
@@ -273,7 +273,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnCadastro;
-    private javax.swing.JButton jBtnCancelar;
+    private javax.swing.JButton jBtnLimpar;
     private javax.swing.JComboBox<String> jCbGenero;
     private javax.swing.JFormattedTextField jFfAno;
     private javax.swing.JFormattedTextField jFfDia;

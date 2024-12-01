@@ -348,6 +348,7 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         deletarCli();
+        limparCli();
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSalvarActionPerformed
