@@ -11,9 +11,9 @@ import view.TelaPrincipal;
 
 public class TelaLogin extends javax.swing.JFrame {
 
-    private TelaAdminConfirm telaAdmin = new TelaAdminConfirm();
+    private final TelaAdminConfirm telaAdmin = new TelaAdminConfirm();
     
-    private boolean teste = true;
+    private final boolean teste = true;
 
     public TelaLogin() {
         initComponents();

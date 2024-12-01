@@ -66,6 +66,32 @@ public class VeiculoDao {
         }
         return veiculos;
     }
+    
+    public Veiculo getById(Long id) {
+        Veiculo veiculo = null;
+        String sql = "SELECT * FROM veiculo WHERE id = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setLong(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    veiculo = new Veiculo(
+                            rs.getLong("id"),
+                            rs.getString("placa"),
+                            rs.getString("marca"),
+                            rs.getString("modelo"),
+                            rs.getString("cor"),
+                            rs.getInt("ano"),
+                            rs.getDouble("preco"),
+                            rs.getBoolean("anunciado"),
+                            rs.getLong("id_cliente")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return veiculo;
+    }
 
     public List<Veiculo> getAll() {
         List<Veiculo> veiculos = new ArrayList<>();
@@ -135,6 +161,59 @@ public class VeiculoDao {
             ps.close();
 
             JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return veiculo;
+    }
+    
+    public Veiculo getByPlaca(String placa) {
+        Veiculo veiculo = null;
+        String sql = "SELECT * FROM veiculo WHERE placa = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, placa);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    veiculo = new Veiculo(
+                            rs.getLong("id"),
+                            rs.getString("placa"),
+                            rs.getString("marca"),
+                            rs.getString("modelo"),
+                            rs.getString("cor"),
+                            rs.getInt("ano"),
+                            rs.getDouble("preco"),
+                            rs.getBoolean("anunciado"),
+                            rs.getLong("id_cliente")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return veiculo;
+    }
+    
+    public Veiculo mudarDono(Veiculo veiculo, Long id_cliente){
+        String sql = "UPDATE veiculo SET id_cliente = ? WHERE id = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setLong(1, id_cliente);
+            ps.setLong(2, veiculo.getId());
+
+            ps.execute();
+            ps.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return veiculo;
+    }
+    
+    public Veiculo removerDono(Veiculo veiculo){
+        String sql = "UPDATE veiculo SET id_cliente = null WHERE id = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setLong(1, veiculo.getId());
+
+            ps.execute();
+            ps.close();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

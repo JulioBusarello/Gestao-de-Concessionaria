@@ -27,7 +27,20 @@ CREATE TABLE veiculo (
     cor VARCHAR(255) NOT NULL,
     preco DECIMAL(10,2) NOT NULL,
     anunciado BOOLEAN NOT NULL DEFAULT FALSE,
-    id_cliente BIGINT
+    id_cliente BIGINT,
+    FOREIGN KEY (id_cliente) REFERENCES cliente(id)
+);
+
+CREATE TABLE compra(
+	id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    parcelas INT NOT NULL,
+    dataCompra DATE not null,
+    id_cliente BIGINT NOT NULL,
+    id_veiculo BIGINT NOT NULL,
+    id_funcionario BIGINT NOT NULL,
+    FOREIGN KEY (id_cliente) REFERENCES cliente(id),
+    FOREIGN KEY (id_veiculo) REFERENCES veiculo(id),
+    FOREIGN KEY (id_funcionario) REFERENCES funcionario(id)
 );
 
 INSERT INTO funcionario (nome, login, senha, admin) VALUES("Admin", "admin", "Senai123", true);

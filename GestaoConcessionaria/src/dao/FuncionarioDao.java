@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import model.Cliente;
 import model.Funcionario;
 
 /**
@@ -78,6 +79,29 @@ public class FuncionarioDao {
             JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+        return funcionario;
+    }
+    
+    public Funcionario getById(Long id) {
+        Funcionario funcionario = null;
+        String sql = "SELECT * FROM funcionario WHERE id =  ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setLong(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    funcionario = new Funcionario(
+                            rs.getLong("id"),
+                            rs.getString("nome"),
+                            rs.getString("login"),
+                            rs.getString("senha"),
+                            rs.getDouble("salario"),
+                            rs.getBoolean("admin")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return funcionario;
     }

@@ -18,6 +18,7 @@ public class TelaCadastrarVeiculo extends javax.swing.JFrame {
 
     public TelaCadastrarVeiculo() {
         initComponents();
+        jBtnCadastro.setEnabled(false);
     }
 
     private void limparVe() {
@@ -28,7 +29,7 @@ public class TelaCadastrarVeiculo extends javax.swing.JFrame {
         jTfCor.setText("");
         jTfPreco.setText("");
 
-        //telaAnunciar(false);
+        jBtnCadastro.setEnabled(false);
     }
 
     private void pegarDados() {
@@ -76,7 +77,7 @@ public class TelaCadastrarVeiculo extends javax.swing.JFrame {
 
         jLaSeta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/seta.png"))); // NOI18N
         jLaSeta.setText("jLabel3");
-        jLaSeta.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLaSeta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLaSeta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLaSetaMouseClicked(evt);
@@ -114,10 +115,22 @@ public class TelaCadastrarVeiculo extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jBtnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 320, -1, -1));
+
+        jTfPlaca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTfPlacaKeyReleased(evt);
+            }
+        });
         getContentPane().add(jTfPlaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 230, -1));
 
         jLabel7.setText("Marca:");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 110, -1, -1));
+
+        jTfModelo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTfModeloKeyReleased(evt);
+            }
+        });
         getContentPane().add(jTfModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 150, 230, -1));
 
         jLabel8.setText("Modelo:");
@@ -125,10 +138,22 @@ public class TelaCadastrarVeiculo extends javax.swing.JFrame {
 
         jLabel9.setText("Ano:");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 190, -1, -1));
+
+        jTfCor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTfCorKeyReleased(evt);
+            }
+        });
         getContentPane().add(jTfCor, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 230, 230, -1));
 
         jLabel10.setText("Cor:");
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 230, -1, -1));
+
+        jTfPreco.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTfPrecoKeyReleased(evt);
+            }
+        });
         getContentPane().add(jTfPreco, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 270, 230, -1));
 
         jLabel11.setText("Preço:");
@@ -139,7 +164,18 @@ public class TelaCadastrarVeiculo extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        jFfAno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jFfAnoKeyReleased(evt);
+            }
+        });
         getContentPane().add(jFfAno, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 190, 230, -1));
+
+        jTfMarca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTfMarcaKeyReleased(evt);
+            }
+        });
         getContentPane().add(jTfMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, 230, -1));
 
         pack();
@@ -158,6 +194,12 @@ public class TelaCadastrarVeiculo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos!");
             return;
         }
+        
+        int optCad = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja cadastrar este veículo?", "Confirmar", JOptionPane.YES_NO_OPTION);
+        
+        if(optCad != JOptionPane.YES_NO_OPTION){
+            return;
+        }
 
         pegarDados();
 
@@ -170,6 +212,54 @@ public class TelaCadastrarVeiculo extends javax.swing.JFrame {
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         limparVe();
     }//GEN-LAST:event_jBtnCancelarActionPerformed
+
+    private void jTfPlacaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTfPlacaKeyReleased
+        if(camposNaoPreenchidos()){
+            jBtnCadastro.setEnabled(false);
+        } else{
+            jBtnCadastro.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTfPlacaKeyReleased
+
+    private void jTfMarcaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTfMarcaKeyReleased
+        if(camposNaoPreenchidos()){
+            jBtnCadastro.setEnabled(false);
+        } else{
+            jBtnCadastro.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTfMarcaKeyReleased
+
+    private void jTfModeloKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTfModeloKeyReleased
+        if(camposNaoPreenchidos()){
+            jBtnCadastro.setEnabled(false);
+        } else{
+            jBtnCadastro.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTfModeloKeyReleased
+
+    private void jFfAnoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFfAnoKeyReleased
+        if(camposNaoPreenchidos()){
+            jBtnCadastro.setEnabled(false);
+        } else{
+            jBtnCadastro.setEnabled(true);
+        }
+    }//GEN-LAST:event_jFfAnoKeyReleased
+
+    private void jTfCorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTfCorKeyReleased
+        if(camposNaoPreenchidos()){
+            jBtnCadastro.setEnabled(false);
+        } else{
+            jBtnCadastro.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTfCorKeyReleased
+
+    private void jTfPrecoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTfPrecoKeyReleased
+        if(camposNaoPreenchidos()){
+            jBtnCadastro.setEnabled(false);
+        } else{
+            jBtnCadastro.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTfPrecoKeyReleased
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

@@ -1,78 +1,70 @@
-package view.veiculo;
+package view.compra;
 
-import dao.ClienteDao;
-import dao.VeiculoDao;
+import dao.CompraDao;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import model.Veiculo;
+import model.Compra;
 import view.TelaPrincipal;
 
 /**
  * @author julio
  */
-
-public class TelaListarVeiculo extends javax.swing.JFrame {
-
-    private VeiculoDao veiculoDao = new VeiculoDao();
-    private ClienteDao clienteDao = new ClienteDao();
+public class TelaListarCompra extends javax.swing.JFrame {
     
-    public TelaListarVeiculo() {
+    private CompraDao compraDao = new CompraDao();
+
+    public TelaListarCompra() {
         initComponents();
-        loadVe();
+        loadCompra();
     }
-    
-    private void loadVe(){
-        DefaultTableModel defaultVe = new DefaultTableModel(new Object[]{
+
+    private void loadCompra() {
+        DefaultTableModel defaultCompra = new DefaultTableModel(new Object[]{
             "ID",
-            "Placa",
-            "Marca",
-            "Modelo",
-            "Ano",
-            "Cor",
-            "Preço",
-            "Anunciado",
-            "Nome Dono"
+            "N Parcelas",
+            "Data",
+            "Cliente",
+            "Placa do Veículo",
+            "Funcionário"
         }, 0);
 
-        List<Veiculo> veiculos = veiculoDao.getAll();
-        for (Veiculo veiculo : veiculos) {
+        List<Compra> compras = compraDao.getAll();
+        for (Compra compra : compras) {
             Object linha[] = new Object[]{
-                veiculo.getId(),
-                veiculo.getPlaca(),
-                veiculo.getMarca(),
-                veiculo.getModelo(),
-                veiculo.getAno(),
-                veiculo.getCor(),
-                veiculo.getPreco(),
-                veiculo.isAnunciado() ? "Sim" : "Não",
-                veiculo.hasDono() ? clienteDao.getById(veiculo.getId_cliente()).getNome() : "Sem dono",
+                compra.getId(),
+                compra.getParcelas(),
+                compra.getData(),
+                compra.getCliente().getNome(),
+                compra.getVeiculo().getPlaca(),
+                compra.getFuncionario().getNome()
             };
-            defaultVe.addRow(linha);
+            defaultCompra.addRow(linha);
         }
-
-        jTbVeiculos.setModel(defaultVe);
-        jTbVeiculos.getColumnModel().getColumn(0).setPreferredWidth(5);
-        jTbVeiculos.getColumnModel().getColumn(4).setPreferredWidth(30);
-        jTbVeiculos.getColumnModel().getColumn(5).setPreferredWidth(35);
-        jTbVeiculos.getColumnModel().getColumn(6).setPreferredWidth(45);
-        jTbVeiculos.getColumnModel().getColumn(7).setPreferredWidth(45);
-        jTbVeiculos.setDefaultEditor(Object.class, null);
+        jTbCompras.setModel(defaultCompra);
+        jTbCompras.getColumnModel().getColumn(0).setPreferredWidth(5);
+        jTbCompras.setDefaultEditor(Object.class, null);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
         jLaSeta = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTbVeiculos = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
+        jTbCompras = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Listar Veículos");
-        setMinimumSize(new java.awt.Dimension(700, 400));
+        setTitle("Listar Compras");
+        setMinimumSize(new java.awt.Dimension(600, 400));
+        setPreferredSize(null);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("LISTA DE COMPRAS");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 600, -1));
 
         jLaSeta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/seta.png"))); // NOI18N
         jLaSeta.setText("jLabel3");
@@ -84,31 +76,26 @@ public class TelaListarVeiculo extends javax.swing.JFrame {
         });
         getContentPane().add(jLaSeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 20, 20));
 
-        jTbVeiculos.setModel(new javax.swing.table.DefaultTableModel(
+        jTbCompras.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Placa", "Marca", "Modelo", "Ano", "Cor", "Preço", "Anunciado", "Nome Dono"
+                "ID", "N Parcelas", "Data Compra", "Dono", "Placa do Veículo", "Funcionário "
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jTbVeiculos.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTbVeiculos);
+        jTbCompras.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jTbCompras);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 730, 320));
-
-        jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("LISTAR VEÍCULOS");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 750, -1));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 580, 330));
 
         pack();
         setLocationRelativeTo(null);
@@ -135,21 +122,20 @@ public class TelaListarVeiculo extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaListarVeiculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaListarCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaListarVeiculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaListarCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaListarVeiculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaListarCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaListarVeiculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaListarCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaListarVeiculo().setVisible(true);
+                new TelaListarCompra().setVisible(true);
             }
         });
     }
@@ -158,6 +144,6 @@ public class TelaListarVeiculo extends javax.swing.JFrame {
     private javax.swing.JLabel jLaSeta;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTbVeiculos;
+    private javax.swing.JTable jTbCompras;
     // End of variables declaration//GEN-END:variables
 }

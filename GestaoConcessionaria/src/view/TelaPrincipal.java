@@ -9,6 +9,9 @@ import view.cliente.TelaCadastroCliente;
 import view.cliente.TelaListarClientes;
 import view.cliente.TelaGerenciarClientes;
 import model.Funcionario;
+import view.compra.TelaCriarCompra;
+import view.compra.TelaGerenciarCompra;
+import view.compra.TelaListarCompra;
 import view.veiculo.TelaAnunciarVeiculo;
 import view.veiculo.TelaCadastrarVeiculo;
 import view.veiculo.TelaGerenciarVeiculo;
@@ -17,6 +20,7 @@ import view.veiculo.TelaListarVeiculo;
 /**
  * @author julio_busarello
  */
+
 public class TelaPrincipal extends javax.swing.JFrame {
     
     public static Funcionario funcionario;
@@ -32,10 +36,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     
     public void telaFuncionario(){
         if (!funcionario.getAdmin()) {
-            jMiCadastrarCli.setEnabled(false);
             jMiGerenciarCli.setEnabled(false);
             jMiCadastrarFun.setEnabled(false);
             jMiGerenciarFun.setEnabled(false);
+            jMiCadastrarVe.setEnabled(false);
+            jMiGerenciarVe.setEnabled(false);
+            jMiGerenciarCompra.setEnabled(false);
         }
         
         String[] nomeFuncionario = funcionario.getNome().split(" ");
@@ -65,6 +71,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMiCadastrarVe = new javax.swing.JMenuItem();
         jMiGerenciarVe = new javax.swing.JMenuItem();
         jMiListar = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMiCriarCompra = new javax.swing.JMenuItem();
+        jMiGerenciarCompra = new javax.swing.JMenuItem();
+        jMiListarCompra = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela Principal");
@@ -148,7 +158,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Veiculos");
+        jMenu2.setText("Veiculo");
 
         jMiAnunciarVe.setText("Anunciar");
         jMiAnunciarVe.addActionListener(new java.awt.event.ActionListener() {
@@ -183,6 +193,34 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu2.add(jMiListar);
 
         jMenuBar1.add(jMenu2);
+
+        jMenu4.setText("Compra");
+
+        jMiCriarCompra.setText("Criar");
+        jMiCriarCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMiCriarCompraActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMiCriarCompra);
+
+        jMiGerenciarCompra.setText("Gerenciar");
+        jMiGerenciarCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMiGerenciarCompraActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMiGerenciarCompra);
+
+        jMiListarCompra.setText("Listar");
+        jMiListarCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMiListarCompraActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMiListarCompra);
+
+        jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
 
@@ -275,6 +313,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
         tela.setVisible(true);
     }//GEN-LAST:event_jMiListarActionPerformed
 
+    private void jMiCriarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMiCriarCompraActionPerformed
+        TelaCriarCompra tela = new TelaCriarCompra();
+        dispose();
+        tela.setVisible(true);
+        tela.setFuncionario(funcionario);
+    }//GEN-LAST:event_jMiCriarCompraActionPerformed
+
+    private void jMiListarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMiListarCompraActionPerformed
+        TelaListarCompra tela = new TelaListarCompra();
+        dispose();
+        tela.setVisible(true);
+    }//GEN-LAST:event_jMiListarCompraActionPerformed
+
+    private void jMiGerenciarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMiGerenciarCompraActionPerformed
+        TelaGerenciarCompra tela = new TelaGerenciarCompra();
+        dispose();
+        tela.setVisible(true);
+    }//GEN-LAST:event_jMiGerenciarCompraActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -313,17 +370,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMiAnunciarVe;
     private javax.swing.JMenuItem jMiCadastrarCli;
     private javax.swing.JMenuItem jMiCadastrarFun;
     private javax.swing.JMenuItem jMiCadastrarVe;
+    private javax.swing.JMenuItem jMiCriarCompra;
     private javax.swing.JMenuItem jMiEditarConta;
     private javax.swing.JMenuItem jMiGerenciarCli;
+    private javax.swing.JMenuItem jMiGerenciarCompra;
     private javax.swing.JMenuItem jMiGerenciarFun;
     private javax.swing.JMenuItem jMiGerenciarVe;
     private javax.swing.JMenuItem jMiListar;
     private javax.swing.JMenuItem jMiListarCli;
+    private javax.swing.JMenuItem jMiListarCompra;
     private javax.swing.JMenuItem jMiListarFun;
     private javax.swing.JMenuItem jMiSair;
     // End of variables declaration//GEN-END:variables

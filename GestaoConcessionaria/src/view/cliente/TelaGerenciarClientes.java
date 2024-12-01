@@ -223,6 +223,11 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        jFfTelefone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jFfTelefoneKeyReleased(evt);
+            }
+        });
         getContentPane().add(jFfTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 300, -1));
 
         jLabel5.setText("Genero:");
@@ -353,24 +358,32 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
 
     private void jTfNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTfNomeKeyReleased
         if (camposNaoPreenchidos()) {
+            jBtnSalvar.setEnabled(false);
+        } else{
             jBtnSalvar.setEnabled(true);
         }
     }//GEN-LAST:event_jTfNomeKeyReleased
 
     private void jFfDiaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFfDiaKeyReleased
         if (camposNaoPreenchidos()) {
+            jBtnSalvar.setEnabled(false);
+        } else{
             jBtnSalvar.setEnabled(true);
         }
     }//GEN-LAST:event_jFfDiaKeyReleased
 
     private void jFfMesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFfMesKeyReleased
         if (camposNaoPreenchidos()) {
+            jBtnSalvar.setEnabled(false);
+        } else{
             jBtnSalvar.setEnabled(true);
         }
     }//GEN-LAST:event_jFfMesKeyReleased
 
     private void jFfAnoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFfAnoKeyReleased
         if (camposNaoPreenchidos()) {
+            jBtnSalvar.setEnabled(false);
+        } else{
             jBtnSalvar.setEnabled(true);
         }
     }//GEN-LAST:event_jFfAnoKeyReleased
@@ -381,6 +394,14 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
         tela.setVisible(true);
         tela.telaFuncionario();
     }//GEN-LAST:event_jLaSetaMouseClicked
+
+    private void jFfTelefoneKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFfTelefoneKeyReleased
+        if (camposNaoPreenchidos()) {
+            jBtnSalvar.setEnabled(false);
+        } else{
+            jBtnSalvar.setEnabled(true);
+        }
+    }//GEN-LAST:event_jFfTelefoneKeyReleased
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

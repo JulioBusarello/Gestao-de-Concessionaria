@@ -12,7 +12,6 @@ import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import model.Cliente;
 import view.TelaPrincipal;
-import view.TelaPrincipal;
 
 /**
  *

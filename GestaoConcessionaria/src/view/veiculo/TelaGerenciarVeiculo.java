@@ -1,20 +1,21 @@
 package view.veiculo;
 
-import dao.FuncionarioDao;
+import dao.ClienteDao;
 import dao.VeiculoDao;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.Funcionario;
 import model.Veiculo;
 import view.TelaPrincipal;
 
 /**
  * @author julio
  */
+
 public class TelaGerenciarVeiculo extends javax.swing.JFrame {
 
-    private VeiculoDao veiculoDao = new VeiculoDao();
+    private final VeiculoDao veiculoDao = new VeiculoDao();
+    private final ClienteDao clienteDao = new ClienteDao();
 
     Long id;
     String placa, marca, modelo, cor;
@@ -52,7 +53,7 @@ public class TelaGerenciarVeiculo extends javax.swing.JFrame {
             "Cor",
             "Preço",
             "Anunciado",
-            "Id Dono"
+            "Nome Dono"
         }, 0);
 
         List<Veiculo> veiculos = veiculoDao.getAll();
@@ -66,7 +67,8 @@ public class TelaGerenciarVeiculo extends javax.swing.JFrame {
                 veiculo.getCor(),
                 veiculo.getPreco(),
                 veiculo.isAnunciado() ? "Sim" : "Não",
-                veiculo.hasDono() ? veiculo.getId_cliente() : "Sem dono",};
+                veiculo.hasDono() ? clienteDao.getById(veiculo.getId_cliente()).getNome() : "Sem dono",
+            };
             defaultVe.addRow(linha);
         }
 
@@ -140,6 +142,7 @@ public class TelaGerenciarVeiculo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLaSeta = new javax.swing.JLabel();
         jTfPlaca = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jTfIdVeiculo = new javax.swing.JTextField();
@@ -156,15 +159,25 @@ public class TelaGerenciarVeiculo extends javax.swing.JFrame {
         jTfPreco = new javax.swing.JTextField();
         jBtnExcluir = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jLaSeta = new javax.swing.JLabel();
         jBtnLimpar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTbVeiculos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gerenciar Veículos");
         setMinimumSize(new java.awt.Dimension(700, 400));
         setPreferredSize(null);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLaSeta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/seta.png"))); // NOI18N
+        jLaSeta.setText("jLabel3");
+        jLaSeta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLaSeta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLaSetaMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLaSeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 20, 20));
 
         jTfPlaca.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -250,16 +263,6 @@ public class TelaGerenciarVeiculo extends javax.swing.JFrame {
         jLabel2.setText("GERENCIAR VEÍCULOS");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 700, -1));
 
-        jLaSeta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/seta.png"))); // NOI18N
-        jLaSeta.setText("jLabel3");
-        jLaSeta.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLaSeta.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLaSetaMouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLaSeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 20, 20));
-
         jBtnLimpar.setText("Limpar");
         jBtnLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -273,7 +276,7 @@ public class TelaGerenciarVeiculo extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Placa", "Marca", "Modelo", "Ano", "Cor", "Preço", "Anunciado", "Id do Dono"
+                "ID", "Placa", "Marca", "Modelo", "Ano", "Cor", "Preço", "Anunciado", "Nome Dono"
             }
         ) {
             boolean[] canEdit = new boolean [] {

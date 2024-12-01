@@ -39,6 +39,28 @@ public class ClienteDao {
 
         return cliente;
     }
+    
+    public Cliente getById(Long id) {
+        Cliente cliente = null;
+        String sql = "SELECT * FROM cliente WHERE id = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setLong(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    cliente = new Cliente(
+                            rs.getLong("id"),
+                            rs.getString("nome"),
+                            rs.getDate("dataNascimento"),
+                            rs.getString("telefone"),
+                            rs.getString("genero")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cliente;
+    }
 
     public List<Cliente> getAllClientes() {
         List<Cliente> clientes = new ArrayList<>();
@@ -65,14 +87,14 @@ public class ClienteDao {
         String sql = "DELETE FROM cliente WHERE id = ?";
         try (PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setLong(1, id);
-            
+
             ps.executeUpdate();
             ps.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    
+
     public void updateCliente(Cliente cliente) {
         String sql = "UPDATE cliente SET nome = ?, dataNascimento = ?, telefone = ?, genero = ? WHERE id = ?";
         try (PreparedStatement ps = con.prepareStatement(sql);) {
@@ -80,13 +102,35 @@ public class ClienteDao {
             ps.setDate(2, cliente.getDataNascimento());
             ps.setString(3, cliente.getTelefone());
             ps.setString(4, cliente.getGenero());
-            
+
             ps.setLong(5, cliente.getId());
-            
+
             ps.executeUpdate();
             ps.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public Cliente getByNome(String nome) {
+        Cliente cliente = null;
+        String sql = "SELECT * FROM cliente WHERE nome LIKE ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, nome);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    cliente = new Cliente(
+                            rs.getLong("id"),
+                            rs.getString("nome"),
+                            rs.getDate("dataNascimento"),
+                            rs.getString("telefone"),
+                            rs.getString("genero")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cliente;
     }
 }
