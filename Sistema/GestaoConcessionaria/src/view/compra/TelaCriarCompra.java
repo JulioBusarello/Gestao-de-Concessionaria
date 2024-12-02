@@ -1,3 +1,7 @@
+/*
+    Tela criação de compra, vinculando funcionário, cliente e veículo
+*/
+
 package view.compra;
 
 import dao.ClienteDao;
@@ -17,6 +21,7 @@ import static view.cliente.TelaCadastroCliente.anoAtual;
 /**
  * @author julio
  */
+
 public class TelaCriarCompra extends javax.swing.JFrame {
 
     String dono, placa, dia, mes, ano;
@@ -125,7 +130,7 @@ public class TelaCriarCompra extends javax.swing.JFrame {
 
         jLaSeta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/seta.png"))); // NOI18N
         jLaSeta.setText("jLabel3");
-        jLaSeta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLaSeta.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLaSeta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLaSetaMouseClicked(evt);
@@ -160,7 +165,7 @@ public class TelaCriarCompra extends javax.swing.JFrame {
         });
         getContentPane().add(jTfParcelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 240, -1));
 
-        jLabel4.setText("Parcelas:");
+        jLabel4.setText("Número de Parcelas:");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, -1, -1));
 
         jTfDono.addKeyListener(new java.awt.event.KeyAdapter() {

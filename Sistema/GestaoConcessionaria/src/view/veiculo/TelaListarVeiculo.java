@@ -1,3 +1,7 @@
+/*
+    Tela para somente listagem de veiculos
+*/
+
 package view.veiculo;
 
 import dao.ClienteDao;

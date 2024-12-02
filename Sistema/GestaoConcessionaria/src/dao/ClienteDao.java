@@ -133,4 +133,21 @@ public class ClienteDao {
         }
         return cliente;
     }
+    
+    public boolean clienteEmUso(Long id){
+        String sql = "SELECT COUNT(*) FROM compra WHERE id_cliente = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setLong(1, id);
+            try(ResultSet rs = ps.executeQuery()){
+                if(rs.next()){
+                    int count = rs.getInt(1);
+                    return count > 0;
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao verificar dependências!" + e);
+        }
+        
+        return false;
+    }
 }

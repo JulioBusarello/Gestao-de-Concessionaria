@@ -1,3 +1,8 @@
+/*
+    Tela para que qualquer funcionário possa realizar a edição dos seus próprios
+    dados
+*/
+
 package view.funcionario;
 
 import dao.FuncionarioDao;
@@ -8,6 +13,7 @@ import view.TelaPrincipal;
 /**
  * @author julio_busarello
  */
+
 public class TelaEditarConta extends javax.swing.JFrame {
 
     private Funcionario funcionario;

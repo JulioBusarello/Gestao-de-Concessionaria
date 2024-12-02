@@ -3,6 +3,7 @@ package connection;
 /**
  * @author julio_busarello
  */
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import javax.swing.JOptionPane;
@@ -15,7 +16,7 @@ public class Conexao {
         try {
             String url = "jdbc:mysql://127.0.0.1:3306/dbConcessionaria";
             String user = "root";
-            String password = "1234";
+            String password = "senai";
             return connection = DriverManager.getConnection(url, user, password);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Impossível conectar-se ao banco de dados! " + e.getMessage());

@@ -1,3 +1,7 @@
+/*
+    Tela para excluir compras, com acesso somente para funcionários administradores
+ */
+
 package view.compra;
 
 import dao.CompraDao;
@@ -10,6 +14,7 @@ import view.TelaPrincipal;
 /**
  * @author julio
  */
+
 public class TelaGerenciarCompra extends javax.swing.JFrame {
 
     private final CompraDao compraDao = new CompraDao();
@@ -59,8 +64,8 @@ public class TelaGerenciarCompra extends javax.swing.JFrame {
 
         jBtnLimpar.setEnabled(ativo);
         jBtnExcluir.setEnabled(ativo);
-        
-        if(!ativo) {
+
+        if (!ativo) {
             limparCampos();
         }
     }
@@ -73,7 +78,7 @@ public class TelaGerenciarCompra extends javax.swing.JFrame {
         jTfDono.setText("");
         jTfPlaca.setText("");
         jTfFuncionario.setText("");
-        
+
         jTbCompras.clearSelection();
     }
 
@@ -209,15 +214,20 @@ public class TelaGerenciarCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnLimparActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
-        Long idCompra = Long.valueOf(jTfIdCompra.getText());
+        try {
+            Long idCompra = Long.valueOf(jTfIdCompra.getText());
 
-        int optDel = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esta Compra?",
-                "Confirmar", JOptionPane.YES_NO_OPTION);
+            int optDel = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esta Compra?",
+                    "Confirmar", JOptionPane.YES_NO_OPTION);
 
-        if (optDel == JOptionPane.YES_NO_OPTION) {
-            compraDao.delete(idCompra);
-            loadCompra();
+            if (optDel == JOptionPane.YES_NO_OPTION) {
+                compraDao.delete(idCompra);
+                loadCompra();
+            }
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(null, "Não foi possível excluir a Compra!");
         }
+
         tela(false);
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 

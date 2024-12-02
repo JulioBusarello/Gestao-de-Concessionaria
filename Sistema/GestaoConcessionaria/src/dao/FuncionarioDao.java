@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import model.Cliente;
 import model.Funcionario;
 
 /**
@@ -138,6 +137,23 @@ public class FuncionarioDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    
+    public boolean funcionarioEmUso(Long id){
+        String sql = "SELECT COUNT(*) FROM compra WHERE id_funcionario = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setLong(1, id);
+            try(ResultSet rs = ps.executeQuery()){
+                if(rs.next()){
+                    int count = rs.getInt(1);
+                    return count > 0;
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao verificar dependências!" + e);
+        }
+        
+        return false;
     }
 
 }

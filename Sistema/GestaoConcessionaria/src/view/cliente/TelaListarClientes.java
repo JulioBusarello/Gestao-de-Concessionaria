@@ -1,3 +1,7 @@
+/*
+    Tela para somente listagem de clientes
+*/
+
 package view.cliente;
 
 import dao.ClienteDao;

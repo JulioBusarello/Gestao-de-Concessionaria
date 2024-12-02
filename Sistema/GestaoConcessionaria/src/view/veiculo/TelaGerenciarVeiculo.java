@@ -1,3 +1,6 @@
+/*
+    Tela para gerenciar veiculos, com acesso somente para funcionários administradores
+ */
 package view.veiculo;
 
 import dao.ClienteDao;
@@ -11,7 +14,6 @@ import view.TelaPrincipal;
 /**
  * @author julio
  */
-
 public class TelaGerenciarVeiculo extends javax.swing.JFrame {
 
     private final VeiculoDao veiculoDao = new VeiculoDao();
@@ -67,8 +69,7 @@ public class TelaGerenciarVeiculo extends javax.swing.JFrame {
                 veiculo.getCor(),
                 veiculo.getPreco(),
                 veiculo.isAnunciado() ? "Sim" : "Não",
-                veiculo.hasDono() ? clienteDao.getById(veiculo.getId_cliente()).getNome() : "Sem dono",
-            };
+                veiculo.hasDono() ? clienteDao.getById(veiculo.getId_cliente()).getNome() : "Sem dono",};
             defaultVe.addRow(linha);
         }
 
@@ -133,8 +134,28 @@ public class TelaGerenciarVeiculo extends javax.swing.JFrame {
         limparVe();
         loadVe();
     }
-    
-    private boolean camposNaoPreenchidos(){
+
+    private void excluirVe() {
+
+        Long id = Long.valueOf(jTfIdVeiculo.getText());
+
+        if (veiculoDao.veiculoEmUso(id)) {
+            JOptionPane.showMessageDialog(null, "Não é possível deletar este Veiculo, pois ele está em uso!");
+            return;
+        }
+
+        int optDel = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir este Veículo?",
+                "Confirmar", JOptionPane.YES_NO_OPTION);
+
+        if (optDel == JOptionPane.YES_NO_OPTION) {
+            veiculoDao.deleteVeiculo(id);
+            loadVe();
+        }
+
+        limparVe();
+    }
+
+    private boolean camposNaoPreenchidos() {
         return jTfPlaca.getText().isBlank() || jTfMarca.getText().isBlank() || jTfModelo.getText().isBlank() || jTfAno.getText().isBlank() || jTfCor.getText().isBlank() || jTfPreco.getText().isBlank();
     }
 
@@ -171,7 +192,7 @@ public class TelaGerenciarVeiculo extends javax.swing.JFrame {
 
         jLaSeta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/seta.png"))); // NOI18N
         jLaSeta.setText("jLabel3");
-        jLaSeta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLaSeta.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLaSeta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLaSetaMouseClicked(evt);
@@ -302,20 +323,11 @@ public class TelaGerenciarVeiculo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSalvarActionPerformed
-        salvarVe(); 
+        salvarVe();
     }//GEN-LAST:event_jBtnSalvarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
-        Long idVe = Long.valueOf(jTfIdVeiculo.getText());
-
-        int optDel = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir este Veículo?",
-                "Confirmar", JOptionPane.YES_NO_OPTION);
-
-        if (optDel == JOptionPane.YES_NO_OPTION) {
-            veiculoDao.deleteVeiculo(idVe);
-            loadVe();
-        }
-        limparVe();
+        excluirVe();
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jLaSetaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLaSetaMouseClicked
@@ -337,49 +349,49 @@ public class TelaGerenciarVeiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_jTbVeiculosMouseClicked
 
     private void jTfPlacaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTfPlacaKeyReleased
-        if(camposNaoPreenchidos()){
+        if (camposNaoPreenchidos()) {
             jBtnSalvar.setEnabled(false);
-        } else{
+        } else {
             jBtnSalvar.setEnabled(true);
         }
     }//GEN-LAST:event_jTfPlacaKeyReleased
 
     private void jTfMarcaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTfMarcaKeyReleased
-        if(camposNaoPreenchidos()){
+        if (camposNaoPreenchidos()) {
             jBtnSalvar.setEnabled(false);
-        } else{
+        } else {
             jBtnSalvar.setEnabled(true);
         }
     }//GEN-LAST:event_jTfMarcaKeyReleased
 
     private void jTfModeloKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTfModeloKeyReleased
-        if(camposNaoPreenchidos()){
+        if (camposNaoPreenchidos()) {
             jBtnSalvar.setEnabled(false);
-        } else{
+        } else {
             jBtnSalvar.setEnabled(true);
         }
     }//GEN-LAST:event_jTfModeloKeyReleased
 
     private void jTfAnoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTfAnoKeyReleased
-        if(camposNaoPreenchidos()){
+        if (camposNaoPreenchidos()) {
             jBtnSalvar.setEnabled(false);
-        } else{
+        } else {
             jBtnSalvar.setEnabled(true);
         }
     }//GEN-LAST:event_jTfAnoKeyReleased
 
     private void jTfCorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTfCorKeyReleased
-        if(camposNaoPreenchidos()){
+        if (camposNaoPreenchidos()) {
             jBtnSalvar.setEnabled(false);
-        } else{
+        } else {
             jBtnSalvar.setEnabled(true);
         }
     }//GEN-LAST:event_jTfCorKeyReleased
 
     private void jTfPrecoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTfPrecoKeyReleased
-        if(camposNaoPreenchidos()){
+        if (camposNaoPreenchidos()) {
             jBtnSalvar.setEnabled(false);
-        } else{
+        } else {
             jBtnSalvar.setEnabled(true);
         }
     }//GEN-LAST:event_jTfPrecoKeyReleased

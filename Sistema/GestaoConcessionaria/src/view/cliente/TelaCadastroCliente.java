@@ -1,7 +1,7 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+    Tela para cadastrar de clientes    
+*/
+
 package view.cliente;
 
 import dao.ClienteDao;
@@ -14,9 +14,9 @@ import model.Cliente;
 import view.TelaPrincipal;
 
 /**
- *
  * @author julio_busarello
  */
+
 public class TelaCadastroCliente extends javax.swing.JFrame {
 
     public static final int anoAtual = LocalDate.now().getYear();

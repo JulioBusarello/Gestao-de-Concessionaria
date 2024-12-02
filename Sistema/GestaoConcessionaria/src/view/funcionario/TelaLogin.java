@@ -1,3 +1,7 @@
+/*
+    Tela para realizar login no sistema
+*/
+
 package view.funcionario;
 
 import dao.FuncionarioDao;

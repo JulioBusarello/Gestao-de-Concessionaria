@@ -1,3 +1,6 @@
+/*
+    Tela para gerenciar clientes, com acesso somente para funcionários administradores
+ */
 package view.cliente;
 
 import dao.ClienteDao;
@@ -11,7 +14,6 @@ import view.TelaPrincipal;
 /**
  * @author julio_busarello
  */
-
 public class TelaGerenciarClientes extends javax.swing.JFrame {
 
     private ClienteDao clienteDao = new ClienteDao();
@@ -68,7 +70,7 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
     }
 
     private void pegarDados() {
-        this.id = Long.parseLong(jTfIdCliente.getText());
+        this.id = Long.valueOf(jTfIdCliente.getText());
         this.nome = jTfNome.getText();
         this.telefone = jFfTelefone.getText();
         this.ano = jFfAno.getText();
@@ -106,13 +108,18 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
     }
 
     private void deletarCli() {
-        Long idCli = Long.parseLong(jTfIdCliente.getText());
+        Long id = Long.valueOf(jTfIdCliente.getText());
+        
+        if(clienteDao.clienteEmUso(id)){
+            JOptionPane.showMessageDialog(null, "Não é possível deletar este Cliente, pois ele está em uso!");
+            return;
+        }
 
         int optDel = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir este Cliente?",
                 "Confirmar", JOptionPane.YES_NO_OPTION);
 
         if (optDel == JOptionPane.YES_NO_OPTION) {
-            clienteDao.deleteCliente(idCli);
+            clienteDao.deleteCliente(id);
             loadCli();
         }
         telaGerenciar(false);
@@ -360,7 +367,7 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
     private void jTfNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTfNomeKeyReleased
         if (camposNaoPreenchidos()) {
             jBtnSalvar.setEnabled(false);
-        } else{
+        } else {
             jBtnSalvar.setEnabled(true);
         }
     }//GEN-LAST:event_jTfNomeKeyReleased
@@ -368,7 +375,7 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
     private void jFfDiaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFfDiaKeyReleased
         if (camposNaoPreenchidos()) {
             jBtnSalvar.setEnabled(false);
-        } else{
+        } else {
             jBtnSalvar.setEnabled(true);
         }
     }//GEN-LAST:event_jFfDiaKeyReleased
@@ -376,7 +383,7 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
     private void jFfMesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFfMesKeyReleased
         if (camposNaoPreenchidos()) {
             jBtnSalvar.setEnabled(false);
-        } else{
+        } else {
             jBtnSalvar.setEnabled(true);
         }
     }//GEN-LAST:event_jFfMesKeyReleased
@@ -384,7 +391,7 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
     private void jFfAnoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFfAnoKeyReleased
         if (camposNaoPreenchidos()) {
             jBtnSalvar.setEnabled(false);
-        } else{
+        } else {
             jBtnSalvar.setEnabled(true);
         }
     }//GEN-LAST:event_jFfAnoKeyReleased
@@ -399,7 +406,7 @@ public class TelaGerenciarClientes extends javax.swing.JFrame {
     private void jFfTelefoneKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFfTelefoneKeyReleased
         if (camposNaoPreenchidos()) {
             jBtnSalvar.setEnabled(false);
-        } else{
+        } else {
             jBtnSalvar.setEnabled(true);
         }
     }//GEN-LAST:event_jFfTelefoneKeyReleased

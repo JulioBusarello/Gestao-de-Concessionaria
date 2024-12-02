@@ -1,3 +1,6 @@
+/*
+    Tela para gerenciar funcionários, com acesso somente para funcionários administradores
+ */
 package view.funcionario;
 
 import dao.FuncionarioDao;
@@ -14,7 +17,7 @@ public class TelaGerenciarFuncionario extends javax.swing.JFrame {
 
     private FuncionarioDao funcionarioDao = new FuncionarioDao();
     private Funcionario funcionario;
-    
+
     Long id;
     String nome, login, senha;
     Double salario;
@@ -43,7 +46,10 @@ public class TelaGerenciarFuncionario extends javax.swing.JFrame {
         jTfSalario.setEnabled(ativo);
         jCbAdmin.setEnabled(ativo);
 
-        if (!ativo) { jTbFuncionarios.clearSelection(); limparFun(); }
+        if (!ativo) {
+            jTbFuncionarios.clearSelection();
+            limparFun();
+        }
     }
 
     private void loadFun() {
@@ -74,7 +80,7 @@ public class TelaGerenciarFuncionario extends javax.swing.JFrame {
 
     private Long mostrarDados(int selection) {
         Long id = Long.valueOf(jTbFuncionarios.getValueAt(selection, 0).toString());
-        
+
         jTfIdFun.setText(id.toString());
         jTfNome.setText(jTbFuncionarios.getValueAt(selection, 1).toString());
         jTfLogin.setText(jTbFuncionarios.getValueAt(selection, 2).toString());
@@ -84,11 +90,11 @@ public class TelaGerenciarFuncionario extends javax.swing.JFrame {
         jCbAdmin.setSelected("Sim".equals(jTbFuncionarios.getValueAt(selection, 5).toString()));
 
         telaGerenciar(true);
-        
+
         return id;
     }
-    
-    private void pegarDados(){
+
+    private void pegarDados() {
         this.id = Long.valueOf(jTfIdFun.getText());
         this.nome = jTfNome.getText();
         this.login = jTfLogin.getText();
@@ -110,10 +116,17 @@ public class TelaGerenciarFuncionario extends javax.swing.JFrame {
     private void excluirFun() {
         Long id = Long.valueOf(jTfIdFun.getText());
 
-        int optDel = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir este Funcionario?",
+        if (funcionarioDao.funcionarioEmUso(id)) {
+            JOptionPane.showMessageDialog(null, "Não é possível deletar este Funcionário, pois ele está em uso!");
+            return;
+        }
+
+        int optDel = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir este Funcionário?",
                 "Confirmar", JOptionPane.YES_NO_OPTION);
 
-        if (optDel != JOptionPane.YES_NO_OPTION) return;
+        if (optDel != JOptionPane.YES_NO_OPTION) {
+            return;
+        }
 
         if (id.equals(funcionario.getId())) {
             JOptionPane.showMessageDialog(null, "Não é possível excluir sua própria conta!");
@@ -125,8 +138,8 @@ public class TelaGerenciarFuncionario extends javax.swing.JFrame {
 
         telaGerenciar(false);
     }
-    
-    private void salvarFun(){
+
+    private void salvarFun() {
         pegarDados();
 
         if (camposNaoPreenchidos()) {
@@ -146,7 +159,7 @@ public class TelaGerenciarFuncionario extends javax.swing.JFrame {
         limparFun();
         loadFun();
     }
-    
+
     private boolean camposNaoPreenchidos() {
         return jTfNome.getText().isBlank() || jTfLogin.getText().isBlank() || jTfSenha.getText().isBlank() || jTfSalario.getText().isBlank();
     }
@@ -313,8 +326,8 @@ public class TelaGerenciarFuncionario extends javax.swing.JFrame {
     private void jTbFuncionariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTbFuncionariosMouseClicked
         int selection = jTbFuncionarios.getSelectedRow();
         Long id = mostrarDados(selection);
-        
-        if(funcionario.getId().equals(id)){
+
+        if (funcionario.getId().equals(id)) {
             jCbAdmin.setEnabled(false);
         }
     }//GEN-LAST:event_jTbFuncionariosMouseClicked
@@ -332,33 +345,33 @@ public class TelaGerenciarFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnSalvarActionPerformed
 
     private void jTfNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTfNomeKeyReleased
-        if(!camposNaoPreenchidos()){    
+        if (!camposNaoPreenchidos()) {
             jBtnSalvar.setEnabled(true);
-        }else{
+        } else {
             jBtnSalvar.setEnabled(false);
         }
     }//GEN-LAST:event_jTfNomeKeyReleased
 
     private void jTfLoginKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTfLoginKeyReleased
-        if(!camposNaoPreenchidos()){
+        if (!camposNaoPreenchidos()) {
             jBtnSalvar.setEnabled(true);
-        }else{
+        } else {
             jBtnSalvar.setEnabled(false);
         }
     }//GEN-LAST:event_jTfLoginKeyReleased
 
     private void jTfSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTfSenhaKeyReleased
-        if(!camposNaoPreenchidos()){
+        if (!camposNaoPreenchidos()) {
             jBtnSalvar.setEnabled(true);
-        }else{
+        } else {
             jBtnSalvar.setEnabled(false);
         }
     }//GEN-LAST:event_jTfSenhaKeyReleased
 
     private void jTfSalarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTfSalarioKeyReleased
-        if(!camposNaoPreenchidos()){
+        if (!camposNaoPreenchidos()) {
             jBtnSalvar.setEnabled(true);
-        }else{
+        } else {
             jBtnSalvar.setEnabled(false);
         }
     }//GEN-LAST:event_jTfSalarioKeyReleased

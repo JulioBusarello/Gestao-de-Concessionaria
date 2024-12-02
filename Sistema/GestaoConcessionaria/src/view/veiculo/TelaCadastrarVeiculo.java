@@ -1,3 +1,7 @@
+/*
+    Tela para cadastrar um veículo no sistema, com acesso somente para administradores
+*/
+
 package view.veiculo;
 
 import dao.VeiculoDao;
@@ -8,6 +12,7 @@ import view.TelaPrincipal;
 /**
  * @author julio_busarello
  */
+
 public class TelaCadastrarVeiculo extends javax.swing.JFrame {
 
     private Veiculo veiculo;
@@ -77,7 +82,7 @@ public class TelaCadastrarVeiculo extends javax.swing.JFrame {
 
         jLaSeta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/seta.png"))); // NOI18N
         jLaSeta.setText("jLabel3");
-        jLaSeta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLaSeta.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLaSeta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLaSetaMouseClicked(evt);

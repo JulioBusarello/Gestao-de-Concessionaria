@@ -1,3 +1,8 @@
+/*
+    Tela para solciitar dados de um administrador para conseguir acessar o 
+    registro de funcionários
+*/
+
 package view.funcionario;
 
 import dao.FuncionarioDao;

@@ -1,3 +1,7 @@
+/*
+    Tela principal do sistema, para acesso as outras
+*/
+
 package view;
 
 import view.funcionario.TelaRegister;
