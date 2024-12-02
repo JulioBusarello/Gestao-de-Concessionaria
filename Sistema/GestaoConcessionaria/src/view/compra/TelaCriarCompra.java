@@ -1,7 +1,6 @@
 /*
     Tela criação de compra, vinculando funcionário, cliente e veículo
-*/
-
+ */
 package view.compra;
 
 import dao.ClienteDao;
@@ -21,7 +20,6 @@ import static view.cliente.TelaCadastroCliente.anoAtual;
 /**
  * @author julio
  */
-
 public class TelaCriarCompra extends javax.swing.JFrame {
 
     String dono, placa, dia, mes, ano;
@@ -247,17 +245,22 @@ public class TelaCriarCompra extends javax.swing.JFrame {
 
         veiculo = new VeiculoDao().getByPlaca(placa);
         cliente = new ClienteDao().getByNome(dono);
-        
+
         if (camposNaoPreenchidos()) {
             JOptionPane.showMessageDialog(null, "Todos os campos devem estar preenchidos!");
             return;
         }
 
-        if(cliente == null) {
+        if (cliente == null) {
             JOptionPane.showMessageDialog(null, "Cliente não encontrado");
             return;
         }
         
+        if (!veiculo.isAnunciado()) {
+            JOptionPane.showMessageDialog(null, "O veículo informado não está disponível!");
+            return;
+        }
+
         if (veiculo == null) {
             JOptionPane.showMessageDialog(null, "Veículo não encontrado");
             return;
@@ -270,8 +273,8 @@ public class TelaCriarCompra extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "A data inserida é inválida!");
             return;
         }
-        
-        if(veiculo != null && cliente != null){
+
+        if (veiculo != null && cliente != null) {
             VeiculoDao vDao = new VeiculoDao();
             vDao.mudarDono(veiculo, cliente.getId());
         }
