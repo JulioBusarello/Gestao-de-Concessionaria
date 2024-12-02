@@ -13,7 +13,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private final TelaAdminConfirm telaAdmin = new TelaAdminConfirm();
     
-    private final boolean teste = true;
+    private final boolean teste = false;
 
     public TelaLogin() {
         initComponents();

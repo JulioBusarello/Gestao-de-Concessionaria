@@ -96,7 +96,7 @@ public class TelaEditarConta extends javax.swing.JFrame {
         getContentPane().add(jLaSeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 20, 20));
 
         jLaEye.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/eye.png"))); // NOI18N
-        jLaEye.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLaEye.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLaEye.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLaEyeMouseClicked(evt);
