@@ -33,8 +33,8 @@ CREATE TABLE veiculo (
 
 CREATE TABLE compra(
 	id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    parcelas INT NOT NULL,
-    dataCompra DATE not null,
+    parcelas INTEGER NOT NULL,
+    dataCompra DATE NOT NULL,
     id_cliente BIGINT NOT NULL,
     id_veiculo BIGINT NOT NULL,
     id_funcionario BIGINT NOT NULL,
@@ -44,4 +44,3 @@ CREATE TABLE compra(
 );
 
 INSERT INTO funcionario (nome, login, senha, admin) VALUES("Admin", "admin", "Senai123", true);
-INSERT INTO veiculo (placa, marca, modelo, ano, cor, preco) VALUES ("DRH9205", "Volkswagen", "Gol", "2005", "Preto", 21000);
