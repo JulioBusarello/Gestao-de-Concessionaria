@@ -63,7 +63,7 @@ public class TelaGerenciarCompra extends javax.swing.JFrame {
         jTfPlaca.setEnabled(false);
 
         jBtnLimpar.setEnabled(ativo);
-        jBtnExcluir.setEnabled(ativo);
+        jBtnCancelar.setEnabled(ativo);
 
         if (!ativo) {
             limparCampos();
@@ -107,7 +107,7 @@ public class TelaGerenciarCompra extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jTfPlaca = new javax.swing.JTextField();
         jBtnLimpar = new javax.swing.JButton();
-        jBtnExcluir = new javax.swing.JButton();
+        jBtnCancelar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jTfIdCompra = new javax.swing.JTextField();
         jLaSeta = new javax.swing.JLabel();
@@ -117,6 +117,7 @@ public class TelaGerenciarCompra extends javax.swing.JFrame {
         jTbCompras = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gerenciar Compras");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -148,13 +149,13 @@ public class TelaGerenciarCompra extends javax.swing.JFrame {
         });
         getContentPane().add(jBtnLimpar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, -1, -1));
 
-        jBtnExcluir.setText("Excluir");
-        jBtnExcluir.addActionListener(new java.awt.event.ActionListener() {
+        jBtnCancelar.setText("Cancelar");
+        jBtnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnExcluirActionPerformed(evt);
+                jBtnCancelarActionPerformed(evt);
             }
         });
-        getContentPane().add(jBtnExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 210, -1, -1));
+        getContentPane().add(jBtnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 210, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -166,7 +167,7 @@ public class TelaGerenciarCompra extends javax.swing.JFrame {
 
         jLaSeta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/seta.png"))); // NOI18N
         jLaSeta.setText("jLabel3");
-        jLaSeta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLaSeta.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLaSeta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLaSetaMouseClicked(evt);
@@ -213,7 +214,7 @@ public class TelaGerenciarCompra extends javax.swing.JFrame {
         tela(false);
     }//GEN-LAST:event_jBtnLimparActionPerformed
 
-    private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
+    private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         try {
             Long idCompra = Long.valueOf(jTfIdCompra.getText());
 
@@ -229,7 +230,7 @@ public class TelaGerenciarCompra extends javax.swing.JFrame {
         }
 
         tela(false);
-    }//GEN-LAST:event_jBtnExcluirActionPerformed
+    }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jLaSetaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLaSetaMouseClicked
         TelaPrincipal tela = new TelaPrincipal();
@@ -278,7 +279,7 @@ public class TelaGerenciarCompra extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtnExcluir;
+    private javax.swing.JButton jBtnCancelar;
     private javax.swing.JButton jBtnLimpar;
     private javax.swing.JLabel jLaSeta;
     private javax.swing.JLabel jLabel1;

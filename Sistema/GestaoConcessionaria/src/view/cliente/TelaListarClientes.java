@@ -25,7 +25,6 @@ public class TelaListarClientes extends javax.swing.JFrame {
 
     public void loadCli(){
         DefaultTableModel defaultCli = new DefaultTableModel(new Object[]{
-            "ID",
             "Nome",
             "Data de Nascimento",
             "Telefone",
@@ -35,7 +34,6 @@ public class TelaListarClientes extends javax.swing.JFrame {
         List<Cliente> clientes = clienteDao.getAllClientes();
         for (Cliente cliente : clientes) {
             Object linha[] = new Object[]{
-                cliente.getId(),
                 cliente.getNome(),
                 cliente.getDataNascimento(),
                 cliente.getTelefone(),
@@ -43,7 +41,6 @@ public class TelaListarClientes extends javax.swing.JFrame {
             defaultCli.addRow(linha);
         }
         jTbClientes.setModel(defaultCli);
-        jTbClientes.getColumnModel().getColumn(0).setPreferredWidth(5);
         jTbClientes.setDefaultEditor(Object.class, null);
     }
     
@@ -69,11 +66,11 @@ public class TelaListarClientes extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nome", "Data de Nascimento", "Telefone", "Genero"
+                "Nome", "Data de Nascimento", "Telefone", "Genero"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

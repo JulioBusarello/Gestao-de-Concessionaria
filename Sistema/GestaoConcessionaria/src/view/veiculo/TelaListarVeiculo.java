@@ -27,7 +27,6 @@ public class TelaListarVeiculo extends javax.swing.JFrame {
     
     private void loadVe(){
         DefaultTableModel defaultVe = new DefaultTableModel(new Object[]{
-            "ID",
             "Placa",
             "Marca",
             "Modelo",
@@ -41,7 +40,6 @@ public class TelaListarVeiculo extends javax.swing.JFrame {
         List<Veiculo> veiculos = veiculoDao.getAll();
         for (Veiculo veiculo : veiculos) {
             Object linha[] = new Object[]{
-                veiculo.getId(),
                 veiculo.getPlaca(),
                 veiculo.getMarca(),
                 veiculo.getModelo(),
@@ -55,11 +53,10 @@ public class TelaListarVeiculo extends javax.swing.JFrame {
         }
 
         jTbVeiculos.setModel(defaultVe);
-        jTbVeiculos.getColumnModel().getColumn(0).setPreferredWidth(5);
-        jTbVeiculos.getColumnModel().getColumn(4).setPreferredWidth(30);
-        jTbVeiculos.getColumnModel().getColumn(5).setPreferredWidth(35);
+        jTbVeiculos.getColumnModel().getColumn(3).setPreferredWidth(30);
+        jTbVeiculos.getColumnModel().getColumn(4).setPreferredWidth(35);
+        jTbVeiculos.getColumnModel().getColumn(5).setPreferredWidth(45);
         jTbVeiculos.getColumnModel().getColumn(6).setPreferredWidth(45);
-        jTbVeiculos.getColumnModel().getColumn(7).setPreferredWidth(45);
         jTbVeiculos.setDefaultEditor(Object.class, null);
     }
 
@@ -80,7 +77,7 @@ public class TelaListarVeiculo extends javax.swing.JFrame {
 
         jLaSeta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/seta.png"))); // NOI18N
         jLaSeta.setText("jLabel3");
-        jLaSeta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLaSeta.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLaSeta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLaSetaMouseClicked(evt);
@@ -93,11 +90,11 @@ public class TelaListarVeiculo extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Placa", "Marca", "Modelo", "Ano", "Cor", "Preço", "Anunciado", "Nome Dono"
+                "Placa", "Marca", "Modelo", "Ano", "Cor", "Preço", "Anunciado", "Nome Dono"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

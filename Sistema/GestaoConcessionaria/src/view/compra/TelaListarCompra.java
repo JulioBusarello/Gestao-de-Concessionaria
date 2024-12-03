@@ -25,7 +25,6 @@ public class TelaListarCompra extends javax.swing.JFrame {
 
     private void loadCompra() {
         DefaultTableModel defaultCompra = new DefaultTableModel(new Object[]{
-            "ID",
             "N Parcelas",
             "Data",
             "Cliente",
@@ -36,7 +35,6 @@ public class TelaListarCompra extends javax.swing.JFrame {
         List<Compra> compras = compraDao.getAll();
         for (Compra compra : compras) {
             Object linha[] = new Object[]{
-                compra.getId(),
                 compra.getParcelas(),
                 compra.getData(),
                 compra.getCliente().getNome(),
@@ -46,7 +44,6 @@ public class TelaListarCompra extends javax.swing.JFrame {
             defaultCompra.addRow(linha);
         }
         jTbCompras.setModel(defaultCompra);
-        jTbCompras.getColumnModel().getColumn(0).setPreferredWidth(5);
         jTbCompras.setDefaultEditor(Object.class, null);
     }
 
@@ -86,11 +83,11 @@ public class TelaListarCompra extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "N Parcelas", "Data Compra", "Dono", "Placa do Veículo", "Funcionário "
+                "N Parcelas", "Data Compra", "Dono", "Placa do Veículo", "Funcionário "
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

@@ -24,7 +24,6 @@ public class TelaListarFuncionario extends javax.swing.JFrame {
 
     private void loadFun() {
         DefaultTableModel defaultCli = new DefaultTableModel(new Object[]{
-            "ID",
             "Nome",
             "Login",
             "Admin"
@@ -33,7 +32,6 @@ public class TelaListarFuncionario extends javax.swing.JFrame {
         List<Funcionario> funcionarios = funcionarioDao.getAllFuncionarios();
         for (Funcionario funcionario : funcionarios) {
             Object linha[] = new Object[]{
-                funcionario.getId(),
                 funcionario.getNome(),
                 funcionario.getLogin(),
                 funcionario.getAdmin() ? "Sim" : "Não"
@@ -41,7 +39,6 @@ public class TelaListarFuncionario extends javax.swing.JFrame {
             defaultCli.addRow(linha);
         }
         jTbFuncionarios.setModel(defaultCli);
-        jTbFuncionarios.getColumnModel().getColumn(0).setPreferredWidth(5);
         jTbFuncionarios.setDefaultEditor(Object.class, null);
     }
 
@@ -81,11 +78,11 @@ public class TelaListarFuncionario extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nome", "Login", "Admin"
+                "Nome", "Login", "Admin"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
